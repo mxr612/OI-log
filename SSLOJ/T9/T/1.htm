@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://10.156.31.134/contestnew.aspx?cid=16 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="洛谷,洛谷Online judge,noip,noi,信息学,信息学竞赛,acm,竞赛,onlineJudge,洛谷Onlinejudge,信息学学习"><meta name="description" content="SSLOJ是广东省东莞市东莞中学松山湖学校信息科教师softsun独立自主开发，旨在给本校或外校信息学奥赛学生一个学习、交流、展示的平台，一己之力终究有限，本站还在不断完善中！"><meta name="keywords" content="东莞中学松山湖学校,OJ,信息学奥赛,信息学,在线评测,算法,编程,松山湖学校,SSLGZ,SSLOJ,SSL"><link rel="shortcut icon" type="image/x-icon" href="http://10.156.31.134/App_img/logo_short.png" media="screen"><title>
+
+</title>
+    <script src="./1_files/jquery-1.10.2.min.js"></script>
+    <script src="./1_files/layer.js"></script><link rel="stylesheet" href="./1_files/layer.css" id="layui_layer_skinlayercss">
+    <link href="./1_files/first.css" rel="stylesheet"><link href="./1_files/mst.css" rel="stylesheet"><link href="./1_files/iconfont.css" rel="stylesheet">
+    <script src="./1_files/mst.js"></script>
+     <script type="text/javascript">
+         function sendstat() {
+             var ssid = "xyac50qqsipaio3tm21bthl5";
+                $.post("ajax/uponlinestat.ashx", { "ssid": ssid });
+            }
+            setInterval(sendstat, 6000); 
+        </script>
+    
+    <link href="./1_files/contestnew.css" rel="stylesheet">
+    <link href="./1_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./1_files/getproblem.css" rel="stylesheet">
+    <script src="./1_files/leftTime.min.js"></script>
+    <script src="./1_files/clipboard.min.js"></script>
+    <script src="./1_files/contestnew.js"></script>
+    <script src="./1_files/table_sort.js"></script>
+    <style type="text/css">
+        #div_content .div_cons
+        {
+            padding-top:15px;
+        }
+       /*倒计时区*/
+        #div_content .div_cons #dateShow {
+            text-align:center;
+            padding:15px;
+            margin-bottom:10px;
+        }
+        #div_content .div_cons #dateShow .tips
+        {
+            margin-right:15px;
+            font-weight:bold;
+        }
+        #div_content .div_cons #dateShow .date-time-span
+        {
+            font-size:20px;
+            background:#333;
+            color:#fff;
+            padding:2px 10px;
+            border-radius:4px;
+            margin-right:5px;
+        }
+        #div_content .div_cons #dateShow .date-s-span
+        {
+            font-size:20px;
+            background:#d8092f;
+            color:#fff;
+            padding:2px 10px;
+            border-radius:4px;
+            margin-right:5px;
+        }
+        /*表格区*/
+         /*结果*/
+         table.statics1
+         {
+             text-align:center;
+         }
+         table.statics1 th
+         {
+             cursor:pointer;
+             text-align:center;
+         }
+         table.statics1 th.desc
+         {
+             background:url(../img/down.png) no-repeat right center;
+         }
+         table.statics1 th.as
+         {
+              background:url(../img/up.png) no-repeat right center;
+         }
+         table.statics1 td.rank
+         {
+            font-weight:bold;
+         }
+          table.statics1 td.medal
+          {
+              background:url(../app_img/medal.png) left center no-repeat;
+              background-size:28px;
+          }
+         table.statics1 td[name='td2']
+         {
+             font-weight:bold;
+             color:#074ac2;
+         }
+         table.statics1 tr.curr
+         {
+             background:#83c29f;
+             color:#fff;
+         }
+         table td[s_id]
+         {
+               text-decoration:underline;
+               color:#07357d;
+         }
+         table td[s_id]:hover{
+             cursor:pointer; 
+         }
+    </style>
+    <script type="text/javascript">
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var hour = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            if (hour >= 0 && hour <= 9) {
+                hour = "0" + hour;
+            }
+            if (min >= 0 && min <= 9) {
+                min = "0" + min;
+            }
+            if (sec >= 0 && sec <= 9) {
+                sec = "0" + sec;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + hour+ seperator2 + min
+                    + seperator2 +sec;
+            return currentdate;
+        }
+
+        $(function () {
+            var data;
+            var now = getNowFormatDate();
+            
+            var stime=$("#ContentPlaceHolder1_lb_stime").text();
+            var etime = $("#ContentPlaceHolder1_lb_etime").text();
+            if (stime>now)
+            {
+                $(".date-show-box .tips").text("距离比赛开始还有");
+                data = stime;
+            }
+           else if(etime>now) {
+                $(".date-show-box .tips").text("距离比赛结束还剩");
+                data = etime;
+            }
+            if (etime<now) {
+                $(".date-show-box .tips").text("比赛已经结束");
+            }
+           if(etime<now)
+                $(".date-show-box .tips").text("比赛已经结束");
+            $.leftTime(data, function (d) {
+                if (d.status) {
+                    var $dateShow = $("#dateShow");
+                    $dateShow.find(".d").html(d.d);
+                    $dateShow.find(".h").html(d.h);
+                    $dateShow.find(".m").html(d.m);
+                    $dateShow.find(".s").html(d.s);
+                }
+            });
+
+            var uname = "2017_LSX";
+            $("table.statics1 tr td[name='td1']").each(function () {
+                var txt = $(this).text();
+                if (txt == uname)
+                    $(this).parent().addClass("curr");
+            });
+
+            $("table.statics1 tr:gt(0)").each(function () {
+                var $td = $(this).find("td").eq(0);
+                var r = $td.text();
+                if (parseInt(r) <= 3)
+                   $td.addClass("medal");
+            });
+
+            $("td[s_id]").click(function () {
+                var sid = $(this).attr("s_id");
+                layer.open({
+                    type: 2,
+                    title: '评测结果',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['80%', '90%'],
+                    content: 'testres.aspx?sid= '+sid  
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+   <form method="post" action="./1_files/1.aspx" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="GnP+5AEro3Ywt9poMDAvw7J0CP66pyKB/EaCtmucOLqwdf2zkUM5gAexkAP1yvaAsaZrTWv/XAWaVQTjCScsTXXpbAiIBFAIGijrVLMEzbNUpo67QR0FAqeyUkwiwo/lQQbXlC9BZQLIccI/lpGOVYXUUG3HYOEtw5tR8xBsS522Frl3mlFYemZGYEPZ9VypcKSodSNYMTogiXF/AV0vWz3TeeuVtG6H90QrOKuIYQAhme/sjB7ctcxRyQ+aYGwK">
+</div>
+    <div id="div_top">
+        <ul>
+            <li>
+                <img src="./1_files/logo_white.png" width="95px">
+            </li>
+            <li>
+                <input id="search_pro" placeholder="搜索试题">
+                <i class="iconfont icon-sousuo_sousuo search"></i> 
+            </li>
+             
+            <li id="li_regs">
+                <div id="div_img" style="background: url(&quot;..//images/18.jpg&quot;) 50% 50% / 100% no-repeat;">
+                    <img id="img_head" src="./1_files/18.jpg" style="display: none;">
+                </div>
+                <a id="hy_name" href="http://10.156.31.134/personal.aspx">2017_LSX</a>
+                <a onclick="return clearsto();" id="lb_exit" href="javascript:__doPostBack(&#39;ctl00$lb_exit&#39;,&#39;&#39;)">退出</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div_sidebar">
+        <ul>
+            <li style="background-color:#6b6969">
+                <a href="http://10.156.31.134/home.aspx">
+                  <i class="iconfont icon-home"></i>
+                  <p>首页</p>
+                </a>
+            </li>
+            <li style="background-color:#ff0000">
+                <a href="http://10.156.31.134/problemset.aspx">
+                   <i class="iconfont icon-tiku"></i>
+                   <p>题库</p>
+                </a>
+            </li>
+            <li style="background-color:#edc792">
+                <i class="iconfont icon-liliangxunlian"></i>
+                <p>训练场</p>
+            </li>
+            <li style="background-color:#618f7a">
+                <a href="http://10.156.31.134/contest.aspx">
+                    <i class="iconfont icon-wodebisai"></i>
+                    <p>比赛</p>
+                </a>
+            </li>
+            <li style="background-color:#9624a8">
+                <a href="http://10.156.31.134/problemstatus.aspx">
+                 <i class="iconfont icon-zhuangtai"></i>
+                 <p>提交状态</p>
+                </a>
+            </li>
+             <li style="background-color:#3ff21c">
+                <i class="iconfont icon-taolun"></i>
+                  <p>讨论</p>
+            </li>
+        </ul>
+    </div>
+     <div id="div_content">
+        
+    <div class="div_navs">
+        <span id="ContentPlaceHolder1_rb_mlist"><input id="ContentPlaceHolder1_rb_mlist_0" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-pushpin&quot;&gt;&lt;/span&gt;说明" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$0\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_0"><span class="glyphicon icon glyphicon-pushpin"></span>说明</label><input id="ContentPlaceHolder1_rb_mlist_1" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-user&quot;&gt;&lt;/span&gt;选手" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$1\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_1"><span class="glyphicon icon glyphicon-user"></span>选手</label><input id="ContentPlaceHolder1_rb_mlist_2" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-th-list&quot;&gt;&lt;/span&gt;试题" checked="checked"><label for="ContentPlaceHolder1_rb_mlist_2" class="sel"><span class="glyphicon icon glyphicon-th-list"></span>试题</label><input id="ContentPlaceHolder1_rb_mlist_3" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-signal&quot;&gt;&lt;/span&gt;结果" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$3\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_3"><span class="glyphicon icon glyphicon-signal"></span>结果</label><input id="ContentPlaceHolder1_rb_mlist_4" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-paperclip&quot;&gt;&lt;/span&gt;更正" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$4\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_4"><span class="glyphicon icon glyphicon-paperclip"></span>更正</label></span>
+    </div>
+    <div class="div_cons">
+        
+        
+        <div id="ContentPlaceHolder1_div_proset">
+            <div id="pro_lst" style="display: none;">
+                <div>
+	<table class="table table-hover table-bordered table-striped" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gv_proset" style="border-collapse:collapse;">
+		<tbody><tr>
+			<th scope="col">题号</th><th scope="col">标题</th>
+		</tr><tr>
+			<td>A</td><td>
+                                <span pid="1127">麦森数</span>
+                            </td>
+		</tr><tr>
+			<td>B</td><td>
+                                <span pid="1128">电子老鼠闯迷宫</span>
+                            </td>
+		</tr><tr>
+			<td>C</td><td>
+                                <span pid="1129">骑士旅行</span>
+                            </td>
+		</tr><tr>
+			<td>D</td><td>
+                                <span pid="1130">翻币问题</span>
+                            </td>
+		</tr><tr>
+			<td>E</td><td>
+                                <span pid="1131">最优乘车</span>
+                            </td>
+		</tr>
+	</tbody></table>
+</div>
+            </div>
+            <div id="pro_detail"><div id="header" pid="1127"><h2 id="ttl">1127.麦森数</h2><p>时间限制:<span id="lb_time">1000MS</span>内存限制:<span id="lb_mem">256000KB</span></p></div><div id="detail"><h4>题目描述</h4><div id="div_des">&nbsp; &nbsp; &nbsp; 形如2^P-1的素数称为麦森数，这时P一定也是个素数。但反过来不一定，即如果P是个素数，2＾P-1不一定也是素数。到1998年底，人们已找到了37个麦森数。最大的一个是P=3021377，它有909526位。麦森数有许多重要应用，它与完全数密切相关。<br>
+　　任务：从文件中输入P（1000＜P＜3100000），计算2＾P-1的位数和最后500位数字（用十进制高精度数表示）&nbsp;</div></div><div id="input"><h4>输入</h4><div id="div_input">一个整数P（1000&lt;=p&lt;=310000)<br><br></div></div><div id="output"><h4>输出</h4><div id="div_output">第一行：十进制高精度数2＾P-1的位数。 <br>第2-11行：十进制高精度数2＾P-1的最后500位数字。（每行输出50位，共输出10行，不足500位时高位补0） <br>不必验证2＾P-1与P是否为素数。</div></div><div id="s_inout"><div id="in"><h4>输入样例<span class="s_copy_in" data-clipboard-action="copy" data-clipboard-target="#div_sinput">复制</span></h4><div id="div_sinput">1279<br></div></div><div id="out"><h4>输出样例<span class="s_copy_out" data-clipboard-action="copy" data-clipboard-target="#div_soutput">复制</span></h4><div id="div_soutput">386<br>00000000000000000000000000000000000000000000000000<br>00000000000000000000000000000000000000000000000000<br>00000000000000104079321946643990819252403273640855<br>38615262247266704805319112350403608059673360298012<br>23944173232418484242161395428100779138356624832346<br>49081399066056773207629241295093892203457731833496<br>61583550472959420547689811211693677147548478866962<br>50138443826029173234888531116082853841658502825560<br>46662248318909188018470682222031405210266984354887<br>32958028878050869736186900714720710555703168729087<br>注意:不用换行</div></div></div><h4 style="clear:both">说明</h4><div></div></div>
+            <p>
+                <button type="button" id="btn_uppro" style="display: inline-block;"><i class="iconfont"></i> 提交</button>
+            </p>
+        </div>
+        
+    </div>
+    
+
+
+    </div>
+  </form>
+
+
+<div class="_bd_ext_tip _bd_ext_search_mode" style="visibility: hidden; left: 197px; top: 233px;"><span class="_bd_ext_search">百度一下</span><span class="_bd_ext_open">打开链接</span><span class="_bd_ext_copy">复制</span></div></body></html>

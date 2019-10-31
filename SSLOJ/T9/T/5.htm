@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://10.156.31.134/contestnew.aspx?cid=16 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="洛谷,洛谷Online judge,noip,noi,信息学,信息学竞赛,acm,竞赛,onlineJudge,洛谷Onlinejudge,信息学学习"><meta name="description" content="SSLOJ是广东省东莞市东莞中学松山湖学校信息科教师softsun独立自主开发，旨在给本校或外校信息学奥赛学生一个学习、交流、展示的平台，一己之力终究有限，本站还在不断完善中！"><meta name="keywords" content="东莞中学松山湖学校,OJ,信息学奥赛,信息学,在线评测,算法,编程,松山湖学校,SSLGZ,SSLOJ,SSL"><link rel="shortcut icon" type="image/x-icon" href="http://10.156.31.134/App_img/logo_short.png" media="screen"><title>
+
+</title>
+    <script src="./5_files/jquery-1.10.2.min.js"></script>
+    <script src="./5_files/layer.js"></script><link rel="stylesheet" href="./5_files/layer.css" id="layui_layer_skinlayercss">
+    <link href="./5_files/first.css" rel="stylesheet"><link href="./5_files/mst.css" rel="stylesheet"><link href="./5_files/iconfont.css" rel="stylesheet">
+    <script src="./5_files/mst.js"></script>
+     <script type="text/javascript">
+         function sendstat() {
+             var ssid = "xyac50qqsipaio3tm21bthl5";
+                $.post("ajax/uponlinestat.ashx", { "ssid": ssid });
+            }
+            setInterval(sendstat, 6000); 
+        </script>
+    
+    <link href="./5_files/contestnew.css" rel="stylesheet">
+    <link href="./5_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./5_files/getproblem.css" rel="stylesheet">
+    <script src="./5_files/leftTime.min.js"></script>
+    <script src="./5_files/clipboard.min.js"></script>
+    <script src="./5_files/contestnew.js"></script>
+    <script src="./5_files/table_sort.js"></script>
+    <style type="text/css">
+        #div_content .div_cons
+        {
+            padding-top:15px;
+        }
+       /*倒计时区*/
+        #div_content .div_cons #dateShow {
+            text-align:center;
+            padding:15px;
+            margin-bottom:10px;
+        }
+        #div_content .div_cons #dateShow .tips
+        {
+            margin-right:15px;
+            font-weight:bold;
+        }
+        #div_content .div_cons #dateShow .date-time-span
+        {
+            font-size:20px;
+            background:#333;
+            color:#fff;
+            padding:2px 10px;
+            border-radius:4px;
+            margin-right:5px;
+        }
+        #div_content .div_cons #dateShow .date-s-span
+        {
+            font-size:20px;
+            background:#d8092f;
+            color:#fff;
+            padding:2px 10px;
+            border-radius:4px;
+            margin-right:5px;
+        }
+        /*表格区*/
+         /*结果*/
+         table.statics1
+         {
+             text-align:center;
+         }
+         table.statics1 th
+         {
+             cursor:pointer;
+             text-align:center;
+         }
+         table.statics1 th.desc
+         {
+             background:url(../img/down.png) no-repeat right center;
+         }
+         table.statics1 th.as
+         {
+              background:url(../img/up.png) no-repeat right center;
+         }
+         table.statics1 td.rank
+         {
+            font-weight:bold;
+         }
+          table.statics1 td.medal
+          {
+              background:url(../app_img/medal.png) left center no-repeat;
+              background-size:28px;
+          }
+         table.statics1 td[name='td2']
+         {
+             font-weight:bold;
+             color:#074ac2;
+         }
+         table.statics1 tr.curr
+         {
+             background:#83c29f;
+             color:#fff;
+         }
+         table td[s_id]
+         {
+               text-decoration:underline;
+               color:#07357d;
+         }
+         table td[s_id]:hover{
+             cursor:pointer; 
+         }
+    </style>
+    <script type="text/javascript">
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var hour = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            if (hour >= 0 && hour <= 9) {
+                hour = "0" + hour;
+            }
+            if (min >= 0 && min <= 9) {
+                min = "0" + min;
+            }
+            if (sec >= 0 && sec <= 9) {
+                sec = "0" + sec;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + hour+ seperator2 + min
+                    + seperator2 +sec;
+            return currentdate;
+        }
+
+        $(function () {
+            var data;
+            var now = getNowFormatDate();
+            
+            var stime=$("#ContentPlaceHolder1_lb_stime").text();
+            var etime = $("#ContentPlaceHolder1_lb_etime").text();
+            if (stime>now)
+            {
+                $(".date-show-box .tips").text("距离比赛开始还有");
+                data = stime;
+            }
+           else if(etime>now) {
+                $(".date-show-box .tips").text("距离比赛结束还剩");
+                data = etime;
+            }
+            if (etime<now) {
+                $(".date-show-box .tips").text("比赛已经结束");
+            }
+           if(etime<now)
+                $(".date-show-box .tips").text("比赛已经结束");
+            $.leftTime(data, function (d) {
+                if (d.status) {
+                    var $dateShow = $("#dateShow");
+                    $dateShow.find(".d").html(d.d);
+                    $dateShow.find(".h").html(d.h);
+                    $dateShow.find(".m").html(d.m);
+                    $dateShow.find(".s").html(d.s);
+                }
+            });
+
+            var uname = "2017_LSX";
+            $("table.statics1 tr td[name='td1']").each(function () {
+                var txt = $(this).text();
+                if (txt == uname)
+                    $(this).parent().addClass("curr");
+            });
+
+            $("table.statics1 tr:gt(0)").each(function () {
+                var $td = $(this).find("td").eq(0);
+                var r = $td.text();
+                if (parseInt(r) <= 3)
+                   $td.addClass("medal");
+            });
+
+            $("td[s_id]").click(function () {
+                var sid = $(this).attr("s_id");
+                layer.open({
+                    type: 2,
+                    title: '评测结果',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['80%', '90%'],
+                    content: 'testres.aspx?sid= '+sid  
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+   <form method="post" action="./5_files/5.htm" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="iGMKVZo4VEB/IJdfauRNlHltCAuzIwXDv07xt/2557QOUhUH7aYZzXYqIIGLOZxLPhQaQOm41T8ZECUziSO2DSdt8yniqxN8r06dR2a5jNJdW7YJHdS10uvaLcCvTFtBbY07VyjmVCvGfD91slLOsavov2OzW50w1C61DaDL0tRLT5IYpvV7t9YQZu1+90zolvHi3n2AYwGa6W+zy09oUOm2zGJcz7kTCc+xrBnvdhOqh9Z7t3h2x1DGpg/S0z6lLZeWC69HoSVGzhKBWHRxDNisoAz97T2m5cGR66w4ESoj+zXP5tVC5M4amCYQqQRPnZOXbSkLyOa8MAG0u5HfeSt5LcZcdHD6/uE0MlHtP1WTCg6OmfBDAqM7qilrNmVR4Wqs5nVGxIWvW69Q2oHpEM41hpR51s34XQX4b3wwdOfb/4F1/oMEDz2F32sMh0sLVO4KwLHGSHmE4iBkrZNl8SeRCzlZF68lJM49JIx/VV21Z0J/dXjchP5Y94VPDonwx8US/2Mz35lMTEH5E3FKxUnoHK5jRDfmK0XbXDGNxS8ckWBKtUhx21Re25IGCEEa58klX0lLRzomRT7Vrtb3PsVroSj0r7n9pRo6GC4ax0/v5XrkHeM0ecbYAfL9J9s6G30VZQQ9M+1T8DHuOZBqwxqyv24VjL0RuRHZRJecBdMOmktCy27Mw80+BcLvUwkAHcf6zmvhXAwNdK67cyUrYiDlMPBIlqqS7K5udAmNpSRYeoZnldE5rih8/yOjrRkw9II4rEJLvc4jlhIOgCYU9bRgGECd8RxxVv2yo6c/3eJPV7/KbiRFqRA75MdP9sWImypgH2gMzswS8CXyKDPE8QkN5jleiVi204ctn5D2pdzNyK2NEL55V68+/0CmcwnpKGHbEyzO0mC9FY/+MlDLhi9doXbNx2YynkNmxA6G11HbuHNH6t1qz5LKE70hs8GtXzcyqntyjueCAml1MTEk1hzuUTW8vfbcb48B9ysWl7RKN9EqXCmIMw5G6p4JdhtV4LhsprGlc4g1/rrjIqUSgYu6CuQrxy8774LfYnlCWRjyrDl1RDdwrJ59ubVHoTDLA12hUm8/H6NHmH06uFc5hiCH7RDSDx4yHsqaP4xcWir98HzI89ZdC97tJyx3JHaS1pABjMloWyEuXViMnBOWC1TLbXw0j5O0PnA0rNNKeXja043P79lPHxDLG3lX4YH/">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="vgDhMS8xTffWWE50g08j6aM18RfwUo93U1zneELdAel2+CXtg4L01BxN0np0lmK4iYzYworhYQab7daJH3Ox6vHTLE0KubFWjVS/0DeVb4tBZ8t++MrBsx7y2RNvLb7aKjBUDhRmeF23Mi30MMg21A6Edh5zos8VhDEQDlPQKGQGIvUlwotbXRX0z8wTn5qVOzkBN24uV9w5kE6MepKDExTgafi61e5bCuUQgwx2UklKwSbI6T0YthbPByoouc9N">
+</div>
+    <div id="div_top">
+        <ul>
+            <li>
+                <img src="./5_files/logo_white.png" width="95px">
+            </li>
+            <li>
+                <input id="search_pro" placeholder="搜索试题">
+                <i class="iconfont icon-sousuo_sousuo search"></i> 
+            </li>
+             
+            <li id="li_regs">
+                <div id="div_img" style="background: url(&quot;..//images/18.jpg&quot;) 50% 50% / 100% no-repeat;">
+                    <img id="img_head" src="./5_files/18.jpg" style="display: none;">
+                </div>
+                <a id="hy_name" href="http://10.156.31.134/personal.aspx">2017_LSX</a>
+                <a onclick="return clearsto();" id="lb_exit" href="javascript:__doPostBack(&#39;ctl00$lb_exit&#39;,&#39;&#39;)">退出</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div_sidebar">
+        <ul>
+            <li style="background-color:#6b6969">
+                <a href="http://10.156.31.134/home.aspx">
+                  <i class="iconfont icon-home"></i>
+                  <p>首页</p>
+                </a>
+            </li>
+            <li style="background-color:#ff0000">
+                <a href="http://10.156.31.134/problemset.aspx">
+                   <i class="iconfont icon-tiku"></i>
+                   <p>题库</p>
+                </a>
+            </li>
+            <li style="background-color:#edc792">
+                <i class="iconfont icon-liliangxunlian"></i>
+                <p>训练场</p>
+            </li>
+            <li style="background-color:#618f7a">
+                <a href="http://10.156.31.134/contest.aspx">
+                    <i class="iconfont icon-wodebisai"></i>
+                    <p>比赛</p>
+                </a>
+            </li>
+            <li style="background-color:#9624a8">
+                <a href="http://10.156.31.134/problemstatus.aspx">
+                 <i class="iconfont icon-zhuangtai"></i>
+                 <p>提交状态</p>
+                </a>
+            </li>
+             <li style="background-color:#3ff21c">
+                <i class="iconfont icon-taolun"></i>
+                  <p>讨论</p>
+            </li>
+        </ul>
+    </div>
+     <div id="div_content">
+        
+    <div class="div_navs">
+        <span id="ContentPlaceHolder1_rb_mlist"><input id="ContentPlaceHolder1_rb_mlist_0" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-pushpin&quot;&gt;&lt;/span&gt;说明" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$0\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_0"><span class="glyphicon icon glyphicon-pushpin"></span>说明</label><input id="ContentPlaceHolder1_rb_mlist_1" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-user&quot;&gt;&lt;/span&gt;选手" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$1\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_1"><span class="glyphicon icon glyphicon-user"></span>选手</label><input id="ContentPlaceHolder1_rb_mlist_2" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-th-list&quot;&gt;&lt;/span&gt;试题" checked="checked"><label for="ContentPlaceHolder1_rb_mlist_2" class="sel"><span class="glyphicon icon glyphicon-th-list"></span>试题</label><input id="ContentPlaceHolder1_rb_mlist_3" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-signal&quot;&gt;&lt;/span&gt;结果" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$3\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_3"><span class="glyphicon icon glyphicon-signal"></span>结果</label><input id="ContentPlaceHolder1_rb_mlist_4" type="radio" name="ctl00$ContentPlaceHolder1$rb_mlist" value="&lt;span class=&quot;glyphicon icon glyphicon-paperclip&quot;&gt;&lt;/span&gt;更正" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$rb_mlist$4\&#39;,\&#39;\&#39;)&#39;, 0)"><label for="ContentPlaceHolder1_rb_mlist_4"><span class="glyphicon icon glyphicon-paperclip"></span>更正</label></span>
+    </div>
+    <div class="div_cons">
+        
+        
+        <div id="ContentPlaceHolder1_div_proset">
+            <div id="pro_lst" style="display: none;">
+                <div>
+	<table class="table table-hover table-bordered table-striped" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gv_proset" style="border-collapse:collapse;">
+		<tbody><tr>
+			<th scope="col">题号</th><th scope="col">标题</th>
+		</tr><tr>
+			<td>A</td><td>
+                                <span pid="1127">麦森数</span>
+                            </td>
+		</tr><tr>
+			<td>B</td><td>
+                                <span pid="1128">电子老鼠闯迷宫</span>
+                            </td>
+		</tr><tr>
+			<td>C</td><td>
+                                <span pid="1129">骑士旅行</span>
+                            </td>
+		</tr><tr>
+			<td>D</td><td>
+                                <span pid="1130">翻币问题</span>
+                            </td>
+		</tr><tr>
+			<td>E</td><td>
+                                <span pid="1131">最优乘车</span>
+                            </td>
+		</tr>
+	</tbody></table>
+</div>
+            </div>
+            <div id="pro_detail" style="display: block;"><div id="header" pid="1131"><h2 id="ttl">1131.最优乘车</h2><p>时间限制:<span id="lb_time">1000MS</span>内存限制:<span id="lb_mem">256000KB</span></p></div><div id="detail"><h4>题目描述</h4><div id="div_des">&nbsp; &nbsp; &nbsp; &nbsp;H城是一个旅游胜地，每年都有成千上万的人前来观光。为方便游客，巴士公司在各个旅游景点及宾馆，饭店等地都设置了巴士站并开通了一些单程巴上线路。每条单程巴士线路从某个巴士站出发，依次途经若干个巴士站，最终到达终点巴士站。&nbsp;<br>
+　　一名旅客最近到H城旅游，他很想去S公园游玩，但如果从他所在的饭店没有一路已士可以直接到达S公园，则他可能要先乘某一路巴士坐几站，再下来换乘同一站台的另一路巴士, 这样换乘几次后到达S公园。&nbsp;<br>
+　　现在用整数1,2,…N 给H城的所有的巴士站编号，约定这名旅客所在饭店的巴士站编号为1…S公园巴士站的编号为N。&nbsp;<br>
+　　写一个程序，帮助这名旅客寻找一个最优乘车方案,使他在从饭店乘车到S公园的过程中换车的次数最少。&nbsp;<br>
+<br>
+<br>
+&nbsp;</div></div><div id="input"><h4>输入</h4><div id="div_input">输入的第一行有两个数字M和N(1&lt;=M&lt;=100 2&lt;=N&lt;=500），表示开通了M条单程巴士线路，总共有N个车站。从第二行到第M刊行依次给出了第1条到第M条巴士线路的信息。其中第i+1行给出的是第i条巴士线路的信息，从左至右按运行顺序依次给出了该线路上的所有站号相邻两个站号之间用一个空格隔开。<br>   </div></div><div id="output"><h4>输出</h4><div id="div_output">输出文件只有一行。如果无法乘巴士从饭店到达S公园，则输出"N0"，否则输出你的程序所找到的最少换车次数，换车次数为0表示不需换车即可到达<br><br></div></div><div id="s_inout"><div id="in"><h4>输入样例<span class="s_copy_in" data-clipboard-action="copy" data-clipboard-target="#div_sinput">复制</span></h4><div id="div_sinput">3 7<br>6 7<br>4 7 3 6<br>2 1 3 5<br><br></div></div><div id="out"><h4>输出样例<span class="s_copy_out" data-clipboard-action="copy" data-clipboard-target="#div_soutput">复制</span></h4><div id="div_soutput">2</div></div></div><h4 style="clear:both">说明</h4><div></div></div>
+            <p>
+                <button type="button" id="btn_uppro" style="display: inline-block;"><i class="iconfont"></i> 提交</button>
+            </p>
+        </div>
+        
+    </div>
+    
+
+
+    </div>
+  </form>
+
+
+<div class="_bd_ext_tip" style="visibility: hidden;"><span class="_bd_ext_search">百度一下</span><span class="_bd_ext_open">打开链接</span><span class="_bd_ext_copy">复制</span></div></body></html>
