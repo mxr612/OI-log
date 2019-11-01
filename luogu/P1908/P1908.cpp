@@ -39,8 +39,8 @@ int _cmpSid(__P x, __P y) {return x.id < y.id;}
 
 int main() {
 	freopen("P1908.in", "r", stdin);
-	root.l = 1, root.r = 500020;
 	scanf("%d", &n);
+	root.l = 1, root.r = n;
 	for (int i = 1; i <= n; ++i)
 		scanf("%d", &a[i].vl), a[i].id = i;
 	std::sort(&a[1], &a[n + 1], _cmpSvl);
