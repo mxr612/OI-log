@@ -43,6 +43,17 @@ int _gcd(int x, int y) {
 	return (y == 0) ? (x) : _gcd(y, x % y);
 }
 
+int phi(int x) {
+	int ans = x;
+	for (int i = 2; i * i <= x; i++) {
+		if (x % i == 0) {
+			ans = ans / i * (i - 1);
+			while (x % i == 0) x /= i;
+		}
+	}
+	if (x > 1) ans = ans / x * (x - 1);
+	return ans;
+}
 int main() {
 	freopen("B.in", "r", stdin);
 	std::cin >> n >> p;
@@ -52,8 +63,9 @@ int main() {
 			s = (s + t) % c;
 	}
 	// std::cout << s;
-	// std::cout << _gcd(2009, 2003);
-	std::cout << 2009 * 2003;
+	// std::cout << _gcd(2009, 1680);
+	std::cout << 2009 * 1680 / _gcd(2009, 1680);
+	// std::cout << phi(2009);
 	// for (int i = 2; i < c; ++i)
 	// 	if (c % i != 0)
 	// 		++ans;
