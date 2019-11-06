@@ -46,7 +46,7 @@ int main() {
 		scanf("%d", &a[i]), a[n + i] = a[i];
 	for (int i = 1; i <= n; ++i)
 		if (!tree[a[i]])
-			tree << a[i], cnt++;z 
+			tree << a[i], cnt++;
 	ans = cnt * n * k * (n * k - 2 * k + 1) - (2 * k + n * k) * (n * k - 2 * k + 1) / 2;
 	tree._free(), cnt = 0;
 	for (int i = 1; i <= n; ++i) {
