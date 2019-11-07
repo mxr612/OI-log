@@ -4,30 +4,31 @@
  */
 
 #include <stdio.h>
+#include <string>
+#include <iostream>
 
-char s[30020], goal[] = "agnus";
-short a[30020] = {0}, pt = 1, ans = 0;
+int _low(int x) {return x < 1 ? 0 : x;}
 
-bool _is_same(char s[], int p) {
-	for (int i = 0; i < 5; ++i) {
+std::string s;
+char goal[] = "agnus";
+bool a[30020] = {false};
+int ans = 0;
+
+bool _is_same(int p) {
+	if ((int)s.size() - p < 5)
+		return false;
+	for (int i = 0; i < 5; ++i)
 		if (s[p + i] != goal[i])
 			return false;
-	}
 	return true;
 }
 
 int main() {
 	freopen("agnus.in", "r", stdin);
-	scanf("%s", s);
-	for (int i = 0; s[i] != '\0'; ++i, ++pt)
-		if (_is_same(s, i))
-			a[pt] = 1, i += 5, pt = i;
-	for (int i = 2; i <= pt; ++i)
-		a[i] += a[i - 1];
-	for (int i = 1; i <= pt; ++i)
-		for (int j = i; j <= pt; ++j)
-			if (a[j] - a[i - 1] > 0)
-				++ans;
-	printf("%d", ans);
+	std::cin >> s;
+	for (int i = 0, rec = -1; i < (int)s.size(); ++i)
+		if (_is_same(i))
+			ans += ((int)s.size() - i - 4) * _low(i - rec), rec = i;
+	std::cout << ans;
 	return 0;
 }
