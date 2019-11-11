@@ -21,8 +21,16 @@ std::string _qf(std::string x) {
 	return x;
 }
 
+char ss[600];
+bool _is(std::string z) {
+	for (int i = 1; i <= n; ++i)
+		if (z == s[i] || z == _qf(s[i]))
+			return true;
+	return false;
+}
+
 int main() {
-	freopen("A.in", "r", stdin);
+	freopen("answer2.in", "r", stdin);
 	scanf("%d%d%d%d", &n, &m, &p, &q);
 	for (int i = 1; i <= n; ++i)
 		std :: cin >> s[i];
@@ -38,11 +46,17 @@ int main() {
 	}
 	if (p == 0) {
 		if (q == 0) {
-			std::cout << -1;
+			s[0] = s[1];
+			for (int i = 0; i < m; ++i)
+				s[0][i] = 'N';
+			while(_is(s[0])){
+				
+			}
+			std::cout << s[0];
 			return 0;
 		}
 		std::sort(&Q[1], &Q[qt + 1]);
-		std::cout << Q[1];
+		std::cout << _qf(Q[1]);
 	}
 	if (pt == 1)
 		std::cout << P[1];
@@ -52,10 +66,7 @@ int main() {
 			for (int j = 1; j <= n && ans == -1; ++j)
 				if (P[i] == _qf(Q[j]))
 					ans = i;
-		if (ans == -1)
-			std::cout << -1;
-		else
-			std::cout << P[ans];
+		std::cout << P[ans];
 	}
 
 	return 0;

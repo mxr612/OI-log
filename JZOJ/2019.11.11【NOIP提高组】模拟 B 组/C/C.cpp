@@ -21,15 +21,15 @@ void _free_edge(__edge *&p) {
 		_free_edge(p->nx), free(p), p = NULL;
 }
 
-bool A_dis[10020][70];
+bool A_dis[20000][70];
 
 int main() {
-	freopen("C.in", "r", stdin);
-	freopen("C.out", "w", stdout);
+	freopen("travel3.in", "r", stdin);
+	// freopen("C.out", "w", stdout);
 	scanf("%d", &C);
 	while (C-- > 0) {
 		scanf("%d%d%d", &n, &m, &T);
-		for (int i = 1, u, v, w; i <= m; ++i)
+		for (int i = 0, u, v, w; i < m; ++i)
 			scanf("%d%d%d", &u, &v, &w), _add_edge(u, v, w), _add_edge(v, u, w);
 		if (T <= 10000) {
 			memset(A_dis, 0, sizeof(A_dis));
