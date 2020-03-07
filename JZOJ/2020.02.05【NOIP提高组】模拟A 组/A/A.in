@@ -1,0 +1,7 @@
+6
+PUSH -2
+MINUS
+PUSH -1
+MAX
+POP
+MAX
