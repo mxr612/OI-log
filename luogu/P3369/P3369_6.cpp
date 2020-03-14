@@ -13,11 +13,6 @@ class __splay {
 		__node *fa, *ls, *rs, **pt;
 	}*root = NULL;
 
-	inline void _update(__node *x) {
-		if (x != NULL)
-			x->s = ((x->ls == NULL) ? (0) : (x->ls->s)) + x->w + ((x->rs == NULL) ? (0) : (x->rs->s));
-	}
-
 	inline void _rotate(register __node *x) {
 		if (x == NULL || x->fa == NULL)return ;
 		register __node *y = x->fa, **s = ((x == x->fa->ls) ? (&x->rs) : (&x->ls));
@@ -33,8 +28,8 @@ class __splay {
 		y->fa = x;
 		y->pt = s;
 		*y->pt = y;
-		_update(y);
-		_update(x);
+		x->s = ((x->ls == NULL) ? (0) : (x->ls->s)) + x->w + ((x->rs == NULL) ? (0) : (x->rs->s));
+		y->s = ((y->ls == NULL) ? (0) : (y->ls->s)) + y->w + ((y->rs == NULL) ? (0) : (y->rs->s));
 	}
 
 	void _splay(__node *x, __node **p) {
@@ -81,7 +76,8 @@ public:
 				if (root->ls != NULL)root->ls->fa = x, root->ls->pt = &x->ls;
 				x->ls = root->ls, x->fa = NULL, x->pt = &root, root = x;
 			}
-			_update(root);
+			if (root != NULL)
+				root->s = ((root->ls == NULL) ? (0) : (root->ls->s)) + root->w + ((root->rs == NULL) ? (0) : (root->rs->s));
 		}
 	}
 
