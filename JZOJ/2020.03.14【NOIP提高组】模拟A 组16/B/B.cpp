@@ -63,8 +63,8 @@ struct __node {
 
 signed main() {
 
-	freopen("fall1.in", "r", stdin);
-	freopen("fall.out", "w", stdout);
+	freopen("fall.in", "r", stdin);
+	// freopen("fall.out", "w", stdout);
 
 	memset(man, 0, sizeof(man));
 	memset(node, 0, sizeof(node));
