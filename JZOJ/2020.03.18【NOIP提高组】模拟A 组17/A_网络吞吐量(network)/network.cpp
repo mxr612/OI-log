@@ -14,7 +14,9 @@
 #define SIZE (100020)
 #define INF (1000000000000000)
 
-int n, m;
+int n = 0, m;
+
+n = 0;
 
 struct __edge {
 	int v;
