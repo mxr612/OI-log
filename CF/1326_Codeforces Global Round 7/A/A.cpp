@@ -12,11 +12,11 @@ signed main() {
 
 	scanf("%d", &n);
 
-	for (register int i = 0; i < n; ++i) {
+	for (register int i = 0, j; i < n; ++i) {
 		scanf("%d", &x);
 		if (x == 1)printf("-1\n");
 		else {
-			for (register int i = 1; i < x; ++i)
+			for (j = 1; j < x; ++j)
 				putchar('9');
 			printf("4\n");
 		}
