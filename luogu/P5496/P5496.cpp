@@ -1,6 +1,6 @@
 /**
  * P5496
- * PAM
+ * PAM 回文自动机模板
  */
 
 #include <stdio.h>
