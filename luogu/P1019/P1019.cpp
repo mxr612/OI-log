@@ -19,7 +19,9 @@ void _dfs(int Dad, int Len);
 int ans = 0;
 
 int main() {
+#ifndef ONLINE_JUDGE
 	freopen("P1019.in", "r", stdin);
+#endif
 
 	cin >> n;
 	for (int i = 1; i <= n; i++)
@@ -44,13 +46,13 @@ int main() {
 }
 
 int _Same(string a, string b) {
-	int LenA = a.size(), LenB = b.size(),ans=0;
+	int LenA = a.size(), LenB = b.size(), ans = 0;
 	string CmpA, CmpB;
 	for (int i = _Low(LenA - min(LenA, LenB)); i < LenA; i++) {
 		CmpA.assign(a, i, LenA);
 		CmpB.assign(b, 0, LenA - i);
-		if(CmpA==CmpB)
-			ans=LenA - i;
+		if (CmpA == CmpB)
+			ans = LenA - i;
 	}
 	return ans;
 }

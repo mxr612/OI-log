@@ -6,7 +6,9 @@
 
 signed main() {
 
+#ifndef ONLINE_JUDGE
 	freopen("C.in", "r", stdin);
+#endif
 
 	int a, s = 0, h[6] = {4, 1, 3, 2, 0, 5};
 	/*
