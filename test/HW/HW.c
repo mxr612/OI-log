@@ -5,6 +5,8 @@
 int main() {
 	// freopen("HW.out", "w", stdout);
 	printf("Hello, world!\n");
-	printf("Hello, VIM!");
+	int a,b;
+	scanf("%d%d",&a,&b);
+	printf("%d",a+b);
 	return 0;
 }
