@@ -12,7 +12,8 @@
             ],
             "options": {
                 "cwd": "/usr/bin"
-            }
+            },
+            "group": "build"
         },
         {
             "type": "shell",
