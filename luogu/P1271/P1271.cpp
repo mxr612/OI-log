@@ -4,8 +4,6 @@
 
 #include <stdio.h>
 
-#include <algorithm>
-
 #define MXN (1020)
 
 signed main() {
