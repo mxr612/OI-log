@@ -1,5 +1,5 @@
 /**
- * P1801
+ * luogu_P1801
  * heap
  */
 
@@ -61,7 +61,8 @@ class __Sheap {
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("P1801.in", "r", stdin);
+    freopen("P1801_1.in", "r", stdin);
+    // freopen("P1801.out", "w", stdout);
 #endif
 
     scanf("%d%d", &m, &n);
@@ -73,15 +74,15 @@ signed main() {
         scanf("%d", &u);
 
         while (j <= u) {
-            if (!Bheap._size() || add[j] <= Bheap._top())
+            if (!Bheap._size() || add[j] <= Bheap._top()) {
                 Bheap._push(add[j++]);
-            else
+                while (Bheap._size() > i)
+                    Sheap._push(Bheap._top()), Bheap._pop();
+            } else
                 Sheap._push(add[j++]);
         }
         while (Bheap._size() < i)
             Bheap._push(Sheap._top()), Sheap._pop();
-        while (Bheap._size() > i)
-            Sheap._push(Bheap._top()), Bheap._pop();
 
         printf("%d\n", Bheap._top());
     }
