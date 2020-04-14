@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "WSL g++",
+            "label": "WSL",
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
@@ -17,7 +17,7 @@
         },
         {
             "type": "shell",
-            "label": "Win g++",
+            "label": "Win",
             "command": "C:\\Program\\mingw64\\bin\\g++.exe",
             "args": [
                 "-g",

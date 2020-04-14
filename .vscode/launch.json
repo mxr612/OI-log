@@ -4,8 +4,9 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
-            "name": "Win C++",
+            "name": "Win",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -23,10 +24,10 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Win g++"
+            "preLaunchTask": "Win"
         },
         {
-            "name": "WSL C++",
+            "name": "WSL",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.wsl",
@@ -43,7 +44,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "WSL g++",
+            "preLaunchTask": "WSL",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
