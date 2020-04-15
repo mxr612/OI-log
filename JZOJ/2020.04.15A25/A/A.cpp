@@ -13,8 +13,9 @@ int n, k, f[MXN] = {0}, s[MXN] = {0};
 int Q[MXN] = {0}, O = 0, I = 0;
 
 signed main() {
-#ifndef ONLINE_JUDGE
-    freopen("A.in", "r", stdin);
+    freopen("redistricting.in", "r", stdin);
+#ifdef ONLINE_JUDGE
+    freopen("redistricting.out", "w", stdout);
 #endif
 
     scanf("%d%d", &n, &k);
