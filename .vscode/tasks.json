@@ -1,6 +1,25 @@
 {
-    "tasks": [
-        {
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Mac",
+			"command": "/usr/bin/clang++",
+			"args": [
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}.Mac"
+			],
+			"options": {
+				"cwd": "/usr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
             "type": "shell",
             "label": "WSL",
             "command": "/usr/bin/g++",
@@ -33,6 +52,5 @@
             ],
             "group": "build"
         }
-    ],
-    "version": "2.0.0"
+	]
 }

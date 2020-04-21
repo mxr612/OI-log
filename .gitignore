@@ -2,3 +2,6 @@
 *.exe
 *.ini
 *.wsl
+*.dSYM
+*.Mac
+*.DS_Store

@@ -45,6 +45,19 @@
             ],
             "preLaunchTask": "WSL",
             "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Mac",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.Mac",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "Mac"
         }
     ]
 }
