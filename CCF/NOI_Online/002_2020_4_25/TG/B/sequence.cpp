@@ -9,7 +9,7 @@
 
 #include <algorithm>
 
-#define MXN (100)
+#define MXN (1000020)
 #define MOD (1000000007)
 
 int N, A[MXN], las[MXN] = {0};
@@ -27,8 +27,8 @@ bool cmp2(LSH x, LSH y) {
 
 class LST {
     struct node {
-        int l, r, s;
-        long long t, w, p;
+        int l, r, s, t, w;
+        long long p;
         node *ls, *rs;
     }* root = NULL;
 
@@ -42,16 +42,16 @@ class LST {
             build(x->ls, l, (l + r) >> 1), build(x->rs, ((l + r) >> 1) + 1, r);
     }
 
-    void pow(node* x, int v) {
-        x->p = (x->p + (v * x->w >> 1) + x->w * v) % MOD, x->w += v;
+    void pow(node* x, long long v) {
+        x->p = (x->p + (v * x->w << 1) + x->s * v * v) % MOD, x->w += v * x->s;
     }
 
     void push(node* x) {
-        if (x == NULL || x->ls == NULL)
-            return;
-        pow(x->ls, x->t), x->ls->t += x->t;
-        pow(x->rs, x->t), x->rs->t += x->t;
-        x->t = 0;
+        if (x != NULL && x->ls != NULL) {
+            pow(x->ls, x->t), x->ls->t += x->t;
+            pow(x->rs, x->t), x->rs->t += x->t;
+            x->t = 0;
+        }
     }
 
     void modify(node* x, int l, int r) {
@@ -59,30 +59,24 @@ class LST {
             return;
         if (l <= x->l && x->r <= r)
             pow(x, 1), ++x->t;
-        else
-            push(x), modify(x->ls, l, r), modify(x->rs, l, r),
-                x->p = x->ls->p + x->rs->p, x->w = x->ls->w + x->rs->w;
-    }
-
-    long long query(node* x, int l, int r) {
-        if (x == NULL || x->r < l || r < x->l)
-            return 0;
-        if (l <= x->l && x->r <= r)
-            return x->p % MOD;
-        push(x);
-        return (query(x->ls, l, r) + query(x->rs, l, r)) % MOD;
+        else {
+            push(x);
+            modify(x->ls, l, r);
+            modify(x->rs, l, r);
+            x->p = x->ls->p + x->rs->p;
+            x->w = x->ls->w + x->rs->w;
+        }
     }
 
    public:
-    void build(int n) { build(root, 1, n); }
+    void build() { build(root, 1, N); }
     void modify(int l, int r) { modify(root, l, r); }
-    long long query(int l, int r) { return query(root, l, r); }
-
+    long long query() { return root->p; }
 } lst;
 
 signed main() {
     freopen("sequence.in", "r", stdin);
-    // freopen("sequence.out", "w", stdout);
+    freopen("sequence.out", "w", stdout);
 
     scanf("%d", &N);
     for (int i = 1, p; i <= N; ++i)
@@ -95,12 +89,11 @@ signed main() {
     for (int i = 1; i <= N; ++i)
         A[i] = lsh[i].b;
 
-    lst.build(N);
+    lst.build();
 
-    long long xxl;
     for (int i = 1; i <= N; ++i) {
-        lst.modify((las[A[i]] == 0) ? (1) : (las[i] + 1), i);
-        ans = (ans + (xxl = lst.query(1, i))) % MOD;
+        lst.modify((las[A[i]] == 0) ? (1) : (las[A[i]] + 1), i);
+        ans = (ans + lst.query()) % MOD;
         las[A[i]] = i;
     }
 
