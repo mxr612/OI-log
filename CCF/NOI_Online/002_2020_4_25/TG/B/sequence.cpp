@@ -26,8 +26,8 @@ bool cmp2(LSH x, LSH y) {
 }
 
 struct node {
-    int l, r, s,t, w;
-    long long p;
+    int l, r, s;
+    long long t, w, p;
     node *ls, *rs;
 }* root = NULL;
 
@@ -82,7 +82,7 @@ signed main() {
     build(root, 1, N);
 
     for (register int i = 1; i <= N; ++i) {
-        modify(root, (las[A[i]] == 0) ? (1) : (las[A[i]] + 1), i);
+        modify(root, las[A[i]] + 1, i);
         ans = (ans + root->p) % MOD;
         las[A[i]] = i;
     }
