@@ -1,27 +1,27 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "shell",
-			"label": "Mac",
-			"command": "/usr/bin/clang++",
-			"args": [
-				"-g",
-				"${file}",
-				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}.Mac"
-			],
-			"options": {
-				"cwd": "/usr/bin"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build"
-		},
-		{
+    "version": "2.0.0",
+    "tasks": [
+        {
             "type": "shell",
-            "label": "WSL",
+            "label": "macOS",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.mac"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Linux",
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
@@ -36,7 +36,7 @@
         },
         {
             "type": "shell",
-            "label": "Win",
+            "label": "Windows",
             "command": "C:\\Program\\mingw64\\bin\\g++.exe",
             "args": [
                 "-g",
@@ -52,5 +52,5 @@
             ],
             "group": "build"
         }
-	]
+    ]
 }

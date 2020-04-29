@@ -3,5 +3,5 @@
 *.ini
 *.wsl
 *.dSYM
-*.Mac
+*.mac
 *.DS_Store

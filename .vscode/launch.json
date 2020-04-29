@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Win",
+            "name": "Windows",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -23,10 +23,10 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Win"
+            "preLaunchTask": "Windows"
         },
         {
-            "name": "WSL",
+            "name": "Linux",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.wsl",
@@ -43,21 +43,21 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "WSL",
+            "preLaunchTask": "Linux",
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "Mac",
+            "name": "macOS",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}.Mac",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.mac",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "Mac"
+            "preLaunchTask": "macOS"
         }
     ]
 }
