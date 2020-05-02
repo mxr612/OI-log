@@ -1,7 +1,2 @@
 
-*.exe
-*.ini
-*.wsl
-*.dSYM
-*.mac
-*.DS_Store
+/build
