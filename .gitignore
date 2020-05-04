@@ -1,4 +1,6 @@
 
 *.exe
 
-/build
+build/*
+
+!.gitkeep
