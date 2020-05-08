@@ -1,5 +1,6 @@
 
-*.exe
+*.ini
+*.DS_Store
 
 .build/*
 
