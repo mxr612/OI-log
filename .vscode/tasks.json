@@ -3,7 +3,7 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "macOS",
+            "label": "Mac",
             "command": "/usr/bin/clang++",
             "args": [
                 "-g",

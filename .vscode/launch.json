@@ -47,7 +47,7 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "macOS",
+            "name": "Mac",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -57,7 +57,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "macOS"
+            "preLaunchTask": "Mac"
         }
     ]
 }
