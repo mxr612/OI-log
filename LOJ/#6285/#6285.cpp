@@ -22,11 +22,8 @@ struct __lsh {
 } lsh[MXN];
 int map[MXN];
 
-bool _cmpa(__lsh x, __lsh y) {
+bool _cmp(__lsh x, __lsh y) {
     return x.u < y.u;
-}
-bool _cmpb(__lsh x, __lsh y) {
-    return x.id < y.id;
 }
 
 int pre[MXS][MXS];
@@ -70,10 +67,11 @@ signed main() {
     }
     pos[n + 1] = pos[n];
 
-    std::sort(&lsh[1], &lsh[n + 1], _cmpa);
+    std::sort(&lsh[1], &lsh[n + 1], _cmp);
     lsh[0].u = lsh[1].u - 1;
     for (int i = 1, p = 0; i <= n; ++i)
-        map[arr[i] = (lsh[i].u == lsh[i - 1].u) ? (p) : (++p)] = lsh[i].u;
+        map[arr[lsh[i].id] = (lsh[i].u == lsh[i - 1].u) ? (p) : (++p)] =
+            lsh[i].u;
     for (int i = 1; i <= n; ++i)
         apr[arr[i]].push_back(i);
 
@@ -81,7 +79,7 @@ signed main() {
         memset(&cnt, 0, sizeof(cnt)), max = 0;
         for (int j = i; j <= n; j += siz) {
             for (int k = j; k < j + siz; ++k)
-                if ((cnt[max] == (++cnt[arr[k]])) ? (k < max)
+                if ((cnt[max] == (++cnt[arr[k]])) ? (arr[k] < max)
                                                   : (cnt[max] < cnt[arr[k]]))
                     max = arr[k];
             pre[pos[i]][pos[j]] = max;
