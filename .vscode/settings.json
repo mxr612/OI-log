@@ -71,7 +71,7 @@
         "typeindex": "cpp",
         "valarray": "cpp"
     },
+    "editor.rulers": [],
     "editor.formatOnSave": true,
-    "C_Cpp.clang_format_style": 
-    "{ BasedOnStyle: Chromium, IndentWidth: 4}"
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Chromium, IndentWidth: 4}"
 }
