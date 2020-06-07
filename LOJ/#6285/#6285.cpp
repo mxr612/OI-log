@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include <algorithm>
+#include <set>
 #include <vector>
 
 #define MXN (100100)
@@ -19,80 +20,77 @@ struct __lsh {
     bool operator<(__lsh x) { return u < x.u; }
 } lsh[MXN];
 
-int map[MXN], arr[MXN];
+int arr[MXN], map[MXN];
 
 std::vector<int> apr[MXN];
 int pos[MXN] = {0};
 
 int cnt[MXN], pre[MXB][MXB];
 
-#define que cnt
-bool vis[MXN] = {false};
+std::set<int> set;
 
-signed
-main() {
+signed main() {
 #ifndef ONLINE_JUDGE
     freopen("a10.in", "r", stdin);
     FILE* ansf = fopen("a10.out", "r");
-    int ans, dif = 0;
+    int awsl, dif = 0;
 #endif
 
     int n;
     scanf("%d", &n);
 
-    for (register int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; ++i)
         scanf("%d", &lsh[i].u), lsh[i].d = i;
-    std::sort(&lsh[1], &lsh[n + 1]);
-    for (register int i = 1, p = 0; i <= n; ++i)
+    std::sort(&lsh[0], &lsh[n + 1]);
+    for (int i = 1, p = 0; i <= n; ++i)
         map[arr[lsh[i].d] = (lsh[i].u == lsh[i - 1].u) ? (p) : (++p)] = lsh[i].u;
 
-    for (register int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; ++i)
         apr[arr[i]].push_back(i), pos[i] = (i - 1) / SIZ + 1;
     pos[n + 1] = pos[n];
 
-    for (register int i = 1, j, k, max = 0; i <= n; i += SIZ)
-        for (memset(cnt, 0, sizeof(cnt)), j = i + SIZ - 1, k = i; j <= n; pre[pos[i]][pos[j]] = max, j += SIZ)
-            for (; k <= j; ++k)
+    for (int i = 1, j, k, max = 0; i <= n; i += SIZ)
+        for (memset(cnt, 0, sizeof(cnt)), j = i; j <= n; pre[pos[i]][pos[j]] = max, j += SIZ)
+            for (k = j; k < j + SIZ; ++k)
                 if ((cnt[max] == cnt[arr[k]]) ? (arr[k] < max) : (cnt[max] < cnt[arr[k]]))
                     max = arr[k];
 
-    int ll, rr, res, max, maxv = 0;
+    int ll, rr, res, max, mav;
 
-    for (register int i = 0, j = 0, l, r, m, q; i < n; ++i, maxv = j = 0) {
+    for (register int i = 1, l, r, m, x; i <= n; ++i) {
         scanf("%d%d", &ll, &rr), l = ll, r = rr;
+        set.clear(), mav = 0;
         for (; l <= r && pos[l] == pos[l - 1]; ++l)
-            if (!vis[arr[l]])
-                que[j++] = arr[l], vis[arr[l]] = true;
+            set.insert(arr[l]);
         for (; l <= r && pos[r] == pos[r + 1]; --r)
-            if (!vis[arr[r]])
-                que[j++] = arr[r], vis[arr[r]] = true;
-        if (l <= r && !vis[pre[pos[l]][pos[r]]])
-            que[j++] = pre[pos[l]][pos[r]];
-        while (--j >= 0) {
-            vis[que[j]] = false;
-            for (l = 0, r = apr[q = que[j]].size() - 1; l < r;)
-                if (apr[q][m = ceil((l + r) / 2.0)] <= rr)
+            set.insert(arr[r]);
+        if (l <= r)
+            set.insert(pre[pos[l]][pos[r]]);
+        for (std::set<int>::iterator j = set.begin(); j != set.end(); ++j) {
+            for (l = 0, r = apr[x = *j].size() - 1; l < r;)
+                if (apr[x][m = ceil((l + r) / 2.0)] <= rr)
                     l = m;
                 else
                     r = m - 1;
-            for (res = l, l = 0, r = apr[q].size() - 1; l < r;)
-                if (apr[q][m = (l + r) >> 1] < ll)
+            for (res = l, l = 0, r = apr[x].size() - 1; l < r;)
+                if (apr[x][m = (l + r) >> 1] < ll)
                     l = m + 1;
                 else
                     r = m;
-            if ((maxv == (res -= r - 1)) ? (q < max) : (maxv < res))
-                max = q, maxv = res;
+            if ((mav == (res -= r - 1)) ? (x < max) : (mav < res))
+                max = x, mav = res;
         }
 #ifndef ONLINE_JUDGE
-        fscanf(ansf, "%d", &ans);
-        if (ans != map[max]) ++dif;
+        fscanf(ansf, "%d", &awsl);
+        if (awsl != map[max])
+            ++dif;
 #else
         printf("%d\n", map[max]);
 #endif
     }
 
 #ifndef ONLINE_JUDGE
-    printf("%d/%d\n", dif, n);
+    printf("%d\n", dif);
 #endif
 
     return 0;
