@@ -16,7 +16,7 @@ int n, q, siz;
 int arr[MXN] = {0}, pos[MXN];
 struct __qus {
     int id, l, r;
-    bool operator<(__qus x) { return (pos[l] == pos[x.l]) ? (r < x.r) : (pos[l] < pos[x.l]); }
+    bool operator<(__qus x) { return (pos[l] == pos[x.l]) ? ((pos[l] & 1) ? (r < x.r) : (r > x.r)) : (pos[l] < pos[x.l]); }
 } qus[MXQ];
 
 int l = 0, r = 0, cnt[MXA] = {0}, res = 0;
