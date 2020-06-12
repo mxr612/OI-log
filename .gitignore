@@ -1,6 +1,7 @@
 
 *.ini
 *.DS_Store
+*.exe
 
 .build/*
 
