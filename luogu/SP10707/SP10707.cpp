@@ -3,126 +3,126 @@
  * SP10707 COT2 - Count on a tree II
 */
 
+#define MXN (40020)
+#define LGN (220)
+#define MXM (100000)
+
 #include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-// #include <string.h>
 
 #include <algorithm>
 
-#define MXN (40020)
-#define MXM (100020)
-#define LGN (220)
+int N, M, lg2N;
 
-int N, M, lgN;
+struct LSH {
+    int u, id;
+    bool operator<(LSH x) { return u < x.u; }
+} lsh[MXN];
 
-struct __node {
+struct Node {
     int w;
-    struct __edge {
+    struct Edge {
         int v;
-        __edge* next;
+        Edge* next;
     }* edge = NULL, ** back = &edge;
-    void _add_edge(int v) {
-        ((*back) = (__edge*)calloc(sizeof(__edge), 1))->v = v, back = &((*back)->next);
-    }
-    bool vis = true;
-    int fr, to;
-    int dep, fa[LGN] = {0};
+    inline void Add_Edge(int x) { ((*back) = (Edge*)calloc(sizeof(Edge), 1))->v = x, back = &((*back)->next); }
+    int dep = 0, fr, to;
+    int fa[LGN];
 } node[MXN];
 
-int Euler[MXN << 1], e = 0;
-void _Euler_LCA(int x, int dep) {
-    node[x].dep = dep;
-    node[x].vis = false;
-    Euler[node[x].fr = ++e] = x;
-    for (int i = 1, *fa = node[x].fa; fa[i - 1] != 0; ++i)
+int eular[MXN << 1], e = 0;
+
+bool vis[MXN] = {false};
+void DFS(int x) {  //Eular preLCA
+    vis[x] = true;
+    eular[node[x].fr = e++] = x;
+    node[x].dep = node[node[x].fa[0]].dep;
+    for (int i = 1, *fa = node[x].fa; fa[i] > 0; ++i)
         fa[i] = node[fa[i - 1]].fa[i - 1];
-    for (__node::__edge* p = node[x].edge; p != NULL; p = p->next)
-        if (node[p->v].vis)
-            node[p->v].fa[0] = x, _Euler_LCA(p->v, dep + 1);
-    Euler[node[x].to = ++e] = x;
-    node[x].vis = true;
+    for (Node::Edge* p = node[x].edge; p != NULL; p = p->next)
+        if (!vis[p->v]) node[p->v].fa[0] = x, DFS(p->v);
+    eular[node[x].to = e++] = x;
+    vis[x] = false;
 }
 
-int _LCA(int x, int y) {
-    if (node[x].dep < node[y].dep) x ^= y ^= x ^= y;
-    for (int d = node[x].dep - node[y].dep; d > 0; d -= (d & (-d)))
-        x = node[x].fa[int(log2(d & (-d)))];
-    if (x != y) {
-        for (int i = lgN; i >= 0; --i)
-            if (node[x].fa[i] != node[y].fa[i])
-                x = node[x].fa[i], y = node[y].fa[i];
-        x = node[x].fa[0], y = node[y].fa[0];
-    }
+int LCA(int x, int y) {
+    if (node[y].dep < node[x].dep) x ^= y ^= x ^= y;
+    for (int i = lg2N; i >= 0; --i)
+        if (node[node[x].fa[i]].dep <= node[y].dep)
+            x = node[x].fa[i];
+
     return x;
 }
 
-int pos[MXN];
-struct __query {
-    int id, l, r, x;
-    bool c;
-    bool operator<(__query x) { return (pos[l] == pos[x.l]) ? (r < x.r) : (pos[l] < pos[x.l]); }
+int pos[MXN << 1];
+struct Query {
+    int d, x, l, r;
+    bool o;
+    bool operator<(Query x) { return (pos[l] == pos[x.l]) ? ((pos[l] & 1) ? (r < x.r) : (r > x.r)) : (pos[l] < pos[x.l]); }
 } query[MXM];
 
-int apr[MXN] = {0};
-int l = 1, r = 0, ans = 0;
+short apr[MXN] = {0};   //node_apr
+int cnt[MXN], res = 0;  //weight_cnt pre_res
 
-inline void _modify(register int x) {
-    ans -= apr[node[x].w], ans += apr[node[x].w] ^= 1;
-    printf("%5d %5d\n", node[x].w, ans);
+void Modify(int x) {  //Node x
+    if (apr[x] ^= 1) {
+        if (cnt[node[x].w]++ == 0)
+            ++res;
+    } else {
+        if (cnt[node[x].w]-- == 1)
+            --res;
+    }
 }
 
-int answ[MXM];
+int ans[MXM];
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("SP10707.in", "r", stdin);
+    freopen("check.in", "r", stdin);
+    freopen("check.out", "w", stdout);
 #endif
 
-    scanf("%d%d", &N, &M), lgN = log2(N);
+    scanf("%d%d", &N, &M), lg2N = log2(N) + 2;
 
     for (int i = 1; i <= N; ++i)
-        scanf("%d", &node[i].w);
-    for (int i = 1, u, v; i < N; ++i)
-        scanf("%d%d", &u, &v), node[u]._add_edge(v), node[v]._add_edge(u);
+        scanf("%d", &lsh[i].u), lsh[i].id = i;
+    std::sort(&lsh[1], &lsh[1 + N]);
+    for (int i = 1, p = 0; i <= N; ++i)
+        node[lsh[i].id].w = (lsh[i].u == lsh[i - 1].u) ? (p) : (++p);
 
-    _Euler_LCA(1, 1);
+    for (int i = 1, x, y; i < N; ++i)
+        scanf("%d%d", &x, &y), node[x].Add_Edge(y), node[y].Add_Edge(x);
 
-    for (int i = 1, siz = sqrt(N); i <= N << 1; ++i)
+    DFS(1);
+
+    for (int i = 1, siz = sqrt(N << 1); i <= N << 1; ++i)
         pos[i] = (i - 1) / siz + 1;
-    for (int i = 0, x, y; i < M; ++i) {
-        query[i].id = i;
+
+    for (int i = 1, x, y; i <= M; ++i) {
+        query[i].d = i;
         scanf("%d%d", &x, &y);
         if (node[y].fr < node[x].fr) x ^= y ^= x ^= y;
-        if ((query[i].x = _LCA(x, y)) == x)
-            query[i].l = node[x].fr, query[i].c = false;
+        if ((query[i].x = LCA(x, y)) == x)
+            query[i].l = node[x].fr, query[i].o = false;
         else
-            query[i].l = node[x].to, query[i].c = true;
+            query[i].l = node[x].to, query[i].o = true;
         query[i].r = node[y].fr;
     }
 
-    std::sort(&query[0], &query[M]);
+    std::sort(&query[1], &query[1 + M]);
 
-    for (int i = 0; i < M; ++i) {
-        // printf("%5d %5d\n", pos[query[i].l], query[i].r);
-        while (query[i].l < l) _modify(Euler[--l]);
-        while (r < query[i].r) _modify(Euler[++r]);
-        while (l < query[i].l) _modify(Euler[l++]);
-        while (query[i].r < r) _modify(Euler[r--]);
-        if (query[i].c) _modify(query[i].x);
-        printf("%d\n", ans);
-        answ[query[i].id] = ans;
-        if (query[i].c) _modify(query[i].x);
+    for (int i = 1, l = 1, r = 0; i <= M; ++i) {
+        while (query[i].l < l) Modify(eular[--l]);
+        while (r < query[i].r) Modify(eular[++r]);
+        while (l < query[i].l) Modify(eular[l++]);
+        while (query[i].r < r) Modify(eular[r--]);
+        if (query[i].o) Modify(query[i].x);
+        ans[query[i].d] = res;
+        if (query[i].o) Modify(query[i].x);
     }
 
-    for (int i = 0; i < M; ++i)
-        printf("%d\n", answ[i]);
-
-    for (int i = 1; i <= N << 1; ++i)
-        printf("%5d ", Euler[i]);
-
-    // for (int i = 0; i <= e; ++i)
-    //     printf("%5d ", Euler[i]);
+    for (int i = 1; i <= M; ++i)
+        printf("%d\n", ans[i]);
 
     return 0;
 }
