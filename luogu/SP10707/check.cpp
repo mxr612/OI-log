@@ -38,7 +38,7 @@ int apr[MXN];
 int ans[MXM];
 
 signed main() {
-    freopen("check.in", "r", stdin);
+    freopen("test_in", "r", stdin);
 
     scanf("%d%d", &N, &M);
 
@@ -72,7 +72,7 @@ signed main() {
             ++ans[i];
     }
 
-    freopen("check.out", "r", stdin);
+    freopen("test_out", "r", stdin);
     for (int i = 1, ck; i <= M; ++i) {
         scanf("%d", &ck);
         if (ck != ans[i])
