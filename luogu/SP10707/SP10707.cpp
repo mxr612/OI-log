@@ -1,11 +1,18 @@
 /**
  * luogu SP10707
  * SP10707 COT2 - Count on a tree II
+ * 纪念一下逝去的两周时光
+ * 1.千万要把数据范围搞准确的
+ * 2.几乎是第一次打倍增LCA,fa数组预处理不熟练
+ * 3.Euler老爷子的名字要记得打对
+ * 4.链表存边好蠢啊,vector真香!步入现代社会
+ * 重写了那么多次,主函数都熟练到写得完全一模一样了(除了打错的Euler)
+ * 各种各样的辣鸡错误,真的菜哭我了
 */
 
 #define MXN (40020)
 #define LGN (220)
-#define MXM (100000)
+#define MXM (100020)
 
 #include <math.h>
 #include <stdio.h>
@@ -23,51 +30,53 @@ struct LSH {
 struct Node {
     int w;
     std::vector<int> edge;
-    int dep, fr, to, fa[LGN];
+    int fr, to;
+    int dep, fa[LGN];
 } node[MXN];
 
-int eular[MXN], e = 0;
+int euler[MXN << 1], e;
 
 bool vis[MXN];
 void DFS(int x) {
     vis[x] = true;
-    eular[node[x].fr = e++] = x;
-    node[x].dep = node[node[x].fa[0]].dep;
-    for (int i = 1, *fa = node[x].fa; fa[i] > 0; --i)
+    euler[node[x].fr = ++e] = x;
+    node[x].dep = node[node[x].fa[0]].dep + 1;
+    for (int i = 1, *fa = node[x].fa; fa[i - 1] > 0; ++i)
         fa[i] = node[fa[i - 1]].fa[i - 1];
-    for (int i = node[x].edge.size() - 1, p; i > 0; --i)
+    for (int i = node[x].edge.size() - 1, p; i >= 0; --i)
         if (!vis[p = node[x].edge[i]])
             node[p].fa[0] = x, DFS(p);
-    eular[node[x].to = e++] = x;
+    euler[node[x].to = ++e] = x;
     vis[x] = false;
 }
-
-int pos[MXN << 1];
-
-struct Query {
-    int d, l, r, f;
-    bool b;
-    bool operator<(Query x) { return (pos[l] == pos[x.l]) ? ((pos[l] & 1) ? (r < x.r) : (r > x.r)) : (pos[l] < pos[x.l]); }
-} query[MXM];
 
 int LCA(int x, int y) {
     if (node[x].dep < node[y].dep) x ^= y ^= x ^= y;
     for (int i = lg2N; i >= 0; --i)
-        if (node[node[x].fa[i]].dep <= node[y].dep)
+        if (node[node[x].fa[i]].dep >= node[y].dep)
             x = node[x].fa[i];
     if (x != y) {
         for (int i = lg2N; i >= 0; --i)
             if (node[x].fa[i] != node[y].fa[i])
                 x = node[x].fa[i], y = node[y].fa[i];
-        x = node[x].fa[0], y = node[y].fa[0];
+        x = node[x].fa[0];
     }
     return x;
 }
 
+int pos[MXN << 1];
+
+struct Query {
+    int d;
+    int l, r, f;
+    bool b;
+    bool operator<(Query x) { return (pos[l] == pos[x.l]) ? ((pos[l] & 1) ? (r < x.r) : (r > x.r)) : (pos[l] < pos[x.l]); }
+} query[MXM];
+
 short apr[MXN];
 int cnt[MXN], res;
 
-void modify(int x) {  //node x
+void modify(int x) {  //Node x
     if (apr[x] ^= 1) {
         if (cnt[node[x].w]++ == 0)
             ++res;
@@ -115,10 +124,10 @@ signed main() {
     std::sort(&query[1], &query[1 + M]);
 
     for (int i = 1, l = 1, r = 0; i <= M; ++i) {
-        while (query[i].l < l) modify(eular[--l]);
-        while (r < query[i].r) modify(eular[++r]);
-        while (l < query[i].l) modify(eular[l++]);
-        while (query[i].r < r) modify(eular[r--]);
+        while (query[i].l < l) modify(euler[--l]);
+        while (r < query[i].r) modify(euler[++r]);
+        while (l < query[i].l) modify(euler[l++]);
+        while (query[i].r < r) modify(euler[r--]);
         if (query[i].b) modify(query[i].f);
         ans[query[i].d] = res;
         if (query[i].b) modify(query[i].f);

@@ -37,6 +37,8 @@ int apr[MXN];
 
 int ans[MXM];
 
+int cnt;
+
 signed main() {
     freopen("test_in", "r", stdin);
 
@@ -76,8 +78,9 @@ signed main() {
     for (int i = 1, ck; i <= M; ++i) {
         scanf("%d", &ck);
         if (ck != ans[i])
-            printf("query: %-10d read: %-10d expected: %-10d\n", i, ck, ans[i]);
+            printf("query: %-10d read: %-10d expected: %-10d\n", i, ck, ans[i]), ++cnt;
     }
+    printf("WA:%d/%d", cnt, M);
 
     return 0;
 }

@@ -16,19 +16,25 @@ signed main() {
     int N = (rand() % MXN) + 1;
     int M = (rand() % MXM) + 1;
 #else
-    int N = MXN;
+    int N = 10;
     int M = MXM;
 #endif
-    int R = 5;  //点权重复指数
+    int R = 0;  //点权重复指数
+    int L = 1;  //离散指数
 
     printf("%d %d\n", N, M);
 
-    for (int i = 1; i <= N; ++i)
-        printf("%d ", ((rand() % (N / R)) * 74751));
+    if (R == 0)
+        for (int i = 1; i <= N; ++i)
+            printf("%d ", i * L);
+    else
+        for (int i = 1; i <= N; ++i)
+            printf("%d ", ((rand() % (N / R)) * L));
+
     putchar('\n');
 
     for (int i = 2; i <= N; ++i)
-        printf("%d %d\n", i, (rand() % i) + 1);
+        printf("%d %d\n", i, (rand() % (i - 1)) + 1);
 
     for (int i = 1; i <= M; ++i)
         printf("%d %d\n", (rand() % N) + 1, (rand() % N) + 1);
