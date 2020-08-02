@@ -84,7 +84,7 @@ class Treap {
                 ++(*x)->s, x = &(f = *x)->ls;
             else
                 ++(*x)->s, x = &(f = *x)->rs;
-        if (!(xx = *x)) xx = *x = (Node *)calloc(sizeof(Node), 1), xx->r = rand(), xx->fa = f, xx->fr = x;
+        if (!(xx = *x)) xx = *x = (Node *)calloc(sizeof(Node), 1), xx->v = v, xx->r = rand(), xx->fa = f, xx->fr = x;
         ++xx->w, ++xx->s;
     }
     void erase(int v) {
@@ -121,6 +121,7 @@ class Treap {
             else
                 r = 0;
         }
+        return (x) ? (x->v) : (0);
     }
     int query_pre(int v) {
         Node *x = root, *res = NULL;
@@ -145,7 +146,7 @@ class Treap {
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("#104.in", "r", stdin);
+    freopen("input2.in", "r", stdin);
 #endif
 
     srand(time(NULL));
