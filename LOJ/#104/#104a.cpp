@@ -20,6 +20,7 @@ class Treap {
         int v, w, s, r;
         Node *ls, *rs, *fa, **fr;
     } * root;
+    void summa(Node *x) { x->s = (x->ls == NULL ? 0 : x->ls->s) + x->w + (x->rs == NULL ? 0 : x->rs->s); }
     void rotate(Node *x) {  //将x上旋
         if (x == NULL || x->fa == NULL) return;
         Node *y = x->fa, **s = (x == y->ls) ? (&x->rs) : (&x->ls);
@@ -27,8 +28,7 @@ class Treap {
         *x->fr = *s;
         x->fa = y->fa, x->fr = y->fr, *y->fr = x;
         y->fa = x, y->fr = s, *s = y;
-        y->s = (y->ls == NULL ? 0 : y->ls->s) + y->w + (y->rs == NULL ? 0 : y->rs->s);
-        x->s = (x->ls == NULL ? 0 : x->ls->s) + x->w + (x->rs == NULL ? 0 : x->rs->s);
+        summa(y), summa(x);
     }
 
     void up(Node *x) {
@@ -68,10 +68,12 @@ class Treap {
         if (x->r < y->r) {
             x->rs = merge(x->rs, y->ls);
             y->ls = x;
+            summa(x), summa(y);
             return y;
         } else {
             y->ls = merge(x->rs, y->ls);
             x->rs = y;
+            summa(y), summa(x);
             return x;
         }
     }
@@ -113,14 +115,13 @@ class Treap {
     }
     int query_r2v(int r) {
         Node *x = root;
-        while (x && r > 0) {
+        while (x && r > 0)
             if (x->ls && r <= x->ls->v)
                 x = x->ls;
             else if (x->rs && x->s - x->rs->s < r)
                 r -= x->s - x->rs->s, x = x->rs;
             else
                 r = 0;
-        }
         return (x) ? (x->v) : (0);
     }
     int query_pre(int v) {
