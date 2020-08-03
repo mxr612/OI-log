@@ -116,7 +116,7 @@ class Treap {
     int query_r2v(int r) {
         Node *x = root;
         while (x && r > 0)
-            if (x->ls && r <= x->ls->v)
+            if (x->ls && r <= x->ls->s)
                 x = x->ls;
             else if (x->rs && x->s - x->rs->s < r)
                 r -= x->s - x->rs->s, x = x->rs;
