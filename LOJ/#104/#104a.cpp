@@ -8,7 +8,6 @@
 #define MXN (100020)
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 #include <algorithm>
@@ -19,48 +18,30 @@ class Treap {
     struct Node {
         int v, w, s, r;
         Node *ls, *rs, *fa, **fr;
-    } * root;
-    void summa(Node *x) { x->s = (x->ls == NULL ? 0 : x->ls->s) + x->w + (x->rs == NULL ? 0 : x->rs->s); }
-    void rotate(Node *x) {  //将x上旋
-        if (x == NULL || x->fa == NULL) return;
+    } *root = NULL;
+
+    void summa(Node *&x) {
+        if (x) x->s = ((x->ls) ? (x->ls->s) : (0)) + x->w + ((x->rs) ? (x->rs->s) : (0));
+    }
+    void rotate(Node *&x) {
+        if (!x || !x->fa) return;
         Node *y = x->fa, **s = (x == y->ls) ? (&x->rs) : (&x->ls);
-        if (*s != NULL) (*s)->fa = y, (*s)->fr = x->fr;
+        if (*s) (*s)->fa = y, (*s)->fr = x->fr;
         *x->fr = *s;
-        x->fa = y->fa, x->fr = y->fr, *y->fr = x;
+        x->fa = y->fa, x->fr = y->fr, *x->fr = x;
         y->fa = x, y->fr = s, *s = y;
         summa(y), summa(x);
     }
-
-    void up(Node *x) {
-        if (x) {
-            while (x->fa && x->fa->r < x->r) {
-                rotate(x);
-                for (Node *i = x->ls; true;) {
-                    if (i->ls && i->r < i->ls->r) {
-                        rotate(i->ls);
-                        continue;
-                    }
-                    if (i->rs && i->r < i->rs->r) {
-                        rotate(i->rs);
-                        continue;
-                    }
-                    break;
-                }
-                for (Node *i = x->rs; true;) {
-                    if (i->ls && i->r < i->ls->r) {
-                        rotate(i->ls);
-                        continue;
-                    }
-                    if (i->rs && i->r < i->rs->r) {
-                        rotate(i->rs);
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
+    void down(Node *&x) {
+        if (!x) return;
+        if (x->ls && x->r < x->ls->r) rotate(x->ls), down(x);
+        if (x->rs && x->r < x->rs->r) rotate(x->rs), down(x);
     }
-
+    void up(Node *x) {
+        if (!x) return;
+        while (x->fa && x->fa->r < x->r)
+            rotate(x), down(x->ls), down(x->rs);
+    }
     Node *merge(Node *x, Node *y) {
         if (!x) return y;
         if (!y) return x;
@@ -80,27 +61,25 @@ class Treap {
 
    public:
     void insert(int v) {
-        Node **x = &root, *xx, *f = NULL;
-        while ((*x) && (*x)->v != v)
-            if (v < (*x)->v)
-                ++(*x)->s, x = &(f = *x)->ls;
+        Node **x = &root, *fa = NULL, *xx;
+        while (*x && v != (*x)->v)
+            if (v < (fa = *x)->v)
+                ++(*x)->s, x = &(*x)->ls;
             else
-                ++(*x)->s, x = &(f = *x)->rs;
-        if (!(xx = *x)) xx = *x = (Node *)calloc(sizeof(Node), 1), xx->v = v, xx->r = rand(), xx->fa = f, xx->fr = x;
+                ++(*x)->s, x = &(*x)->rs;
+        if (!(xx = *x)) xx = *x = (Node *)calloc(sizeof(Node), 1), xx->v = v, xx->r = rand(), xx->fa = fa, xx->fr = x;
         ++xx->w, ++xx->s;
     }
     void erase(int v) {
-        Node **x = &root, *xx;
-        while ((*x) && (*x)->v != v)
-            if (v < (*x)->v)
-                x = &(*x)->ls;
+        Node *x = root;
+        while (x && v != x->v)
+            if (v < x->v)
+                x = x->ls;
             else
-                x = &(*x)->rs;
-        if (xx = *x) {
-            --xx->w, --xx->s;
-            if (!xx->s)
-                *xx->fr = merge(xx->ls, xx->rs);
-            for (xx = xx->fa; xx; xx = xx->fa) --xx->s;
+                x = x->rs;
+        if (x) {
+            if (--x->w == 0) *x->fr = merge(x->ls, x->rs);
+            while (x) --x->s, x = x->fa;
         }
     }
     int query_v2r(int v) {
@@ -111,33 +90,33 @@ class Treap {
                 x = x->ls;
             else
                 res += ((x->ls) ? (x->ls->s) : (0)) + x->w, x = x->rs;
-        return res + ((x && x->ls) ? (x->ls->s) : (0));
+        return res;
     }
     int query_r2v(int r) {
         Node *x = root;
         while (x && r > 0)
             if (x->ls && r <= x->ls->s)
                 x = x->ls;
-            else if (x->rs && x->s - x->rs->s < r)
-                r -= x->s - x->rs->s, x = x->rs;
+            else if (x->rs && (r -= x->s - x->rs->s) > 0)
+                x = x->rs;
             else
                 r = 0;
         return (x) ? (x->v) : (0);
     }
     int query_pre(int v) {
         Node *x = root, *res = NULL;
-        while (x && v != x->v)
-            if (v < x->v)
+        while (x)
+            if (v <= x->v)
                 x = x->ls;
             else
-                res = x, x = x->rs;
+                x = (res = x)->rs;
         return (res) ? (res->v) : (0);
     }
     int query_nxt(int v) {
         Node *x = root, *res = NULL;
-        while (x && v != x->v)
+        while (x)
             if (v < x->v)
-                res = x, x = x->ls;
+                x = (res = x)->ls;
             else
                 x = x->rs;
         return (res) ? (res->v) : (0);
