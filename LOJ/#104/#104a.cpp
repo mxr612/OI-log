@@ -42,18 +42,21 @@ class Treap {
         while (x->fa && x->fa->r < x->r)
             rotate(x), down(x->ls), down(x->rs);
     }
-    Node *merge(Node *x, Node *y) {
+    Node *merge(Node *&x, Node *&y) {
         if (!x) return y;
         if (!y) return x;
         if (y->v < x->v) std::swap(x, y);
+        Node *z = merge(x->rs, y->ls);
         if (x->r < y->r) {
-            x->rs = merge(x->rs, y->ls);
-            y->ls = x;
+            if (z) z->fa = x, z->fr = &x->rs;
+            x->rs = z;
+            x->fa = y, x->fr = &y->ls, y->ls = x;
             summa(x), summa(y);
             return y;
         } else {
-            y->ls = merge(x->rs, y->ls);
-            x->rs = y;
+            if (z) z->fa = y, z->fr = &y->ls;
+            y->ls = z;
+            y->fa = x, y->fr = &x->rs, x->rs = y;
             summa(y), summa(x);
             return x;
         }
@@ -90,7 +93,7 @@ class Treap {
                 x = x->ls;
             else
                 res += ((x->ls) ? (x->ls->s) : (0)) + x->w, x = x->rs;
-        return res;
+        return res + ((x && x->ls) ? (x->ls->s) : (0));
     }
     int query_r2v(int r) {
         Node *x = root;
@@ -100,7 +103,7 @@ class Treap {
             else if (x->rs && (r -= x->s - x->rs->s) > 0)
                 x = x->rs;
             else
-                r = 0;
+                break;
         return (x) ? (x->v) : (0);
     }
     int query_pre(int v) {
@@ -121,12 +124,11 @@ class Treap {
                 x = x->rs;
         return (res) ? (res->v) : (0);
     }
-
 } treap;
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("input2.in", "r", stdin);
+    freopen("input9.in", "r", stdin);
 #endif
 
     srand(time(NULL));
