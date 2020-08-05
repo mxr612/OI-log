@@ -23,7 +23,7 @@ class Treap {
     void summa(Node *&x) {
         if (x) x->s = ((x->ls) ? (x->ls->s) : (0)) + x->w + ((x->rs) ? (x->rs->s) : (0));
     }
-    void rotate(Node *&x) {
+    void rotate(Node *x) {
         if (!x || !x->fa) return;
         Node *y = x->fa, **s = (x == y->ls) ? (&x->rs) : (&x->ls);
         if (*s) (*s)->fa = y, (*s)->fr = x->fr;
@@ -32,7 +32,7 @@ class Treap {
         y->fa = x, y->fr = s, *s = y;
         summa(y), summa(x);
     }
-    void down(Node *&x) {
+    void down(Node *x) {
         if (!x) return;
         if (x->ls && x->r < x->ls->r) rotate(x->ls), down(x);
         if (x->rs && x->r < x->rs->r) rotate(x->rs), down(x);
@@ -42,24 +42,18 @@ class Treap {
         while (x->fa && x->fa->r < x->r)
             rotate(x), down(x->ls), down(x->rs);
     }
-    Node *merge(Node *&x, Node *&y) {
-        if (!x) return y;
-        if (!y) return x;
-        if (y->v < x->v) std::swap(x, y);
-        Node *z = merge(x->rs, y->ls);
-        if (x->r < y->r) {
-            if (z) z->fa = x, z->fr = &x->rs;
-            x->rs = z;
-            x->fa = y, x->fr = &y->ls, y->ls = x;
-            summa(x), summa(y);
-            return y;
-        } else {
-            if (z) z->fa = y, z->fr = &y->ls;
-            y->ls = z;
-            y->fa = x, y->fr = &x->rs, x->rs = y;
-            summa(y), summa(x);
-            return x;
-        }
+    void del(Node *x) {
+        if (!x) return;
+        if (!x->ls && !x->rs)
+            *x->fr = NULL;
+        else if (!x->ls)
+            x->rs->fa = x->fa, x->rs->fr = x->fr, *x->fr = x->rs;
+        else if (!x->rs)
+            x->ls->fa = x->fa, x->ls->fr = x->fr, *x->fr = x->ls;
+        else if (x->ls->r < x->rs->r)
+            rotate(x->rs), del(x);
+        else
+            rotate(x->ls), del(x);
     }
 
    public:
@@ -81,8 +75,8 @@ class Treap {
             else
                 x = x->rs;
         if (x) {
-            if (--x->w == 0) *x->fr = merge(x->ls, x->rs);
-            while (x) --x->s, x = x->fa;
+            for (Node *i = x; i; i = i->fa) --i->s;
+            if (--x->w == 0) del(x);
         }
     }
     int query_v2r(int v) {
