@@ -1,22 +1,20 @@
 #include <stdio.h>
 
-int n,ans;
+int n, ans;
 
-int gcd(int a,int b){
-	return (b==0)?(a):(gcd(b,a%b));
-}
+signed main() {
+#ifndef ONLINE_JUDGE
+    freopen("A.in", "r", stdin);
+#endif
 
-signed main(){
-	
-	scanf("%d",&n);
-	
-	for(int i=1,j;i<=n;++i)
-		for(j=i;j<=n;++j)
-			if((i^j)==(gcd(i,j)))
-			++ans;
-				
-				
-	printf("%d",ans);
-				
-	return 0;
+    scanf("%d", &n);
+
+    for (int i = 1, j; i <= n; ++i)
+        for (j = i << 1; j <= n; j += i)
+            if ((i ^ j) == (j - i))
+                ++ans;
+
+    printf("%d", ans);
+
+    return 0;
 }
