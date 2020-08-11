@@ -122,14 +122,14 @@ signed main() {
     ans[0][1] = 1;
     long long nw = 0, bl;
     for (int i = 0; i < m && nw < K;) {
-        if (bl = modify[i].v / n - nw / n)
+        if (bl = (modify[i].v - 1) / n - nw / n)
             ans *= ksm(bl), nw += n * bl;
-        for (bl = modify[i].v / n; i < m && bl == modify[i].v / n; ++i)
+        for (bl = (modify[i].v - 1) / n; i < m && bl == (modify[i].v - 1) / n; ++i)
             xds.modify(modify[i].v, modify[i].a, modify[i].w);
         ans *= xds.query(1, std::min(nw += n, K));
         xds.recover();
     }
-    if (nw < K) ans *= ksm(K / n - nw / n), ans *= xds.query(1, K);
+    if (nw < K) ans *= ksm((K - 1) / n - nw / n), ans *= xds.query(1, K);
 
     printf("%lld\n", ans[0][0]);
 
