@@ -1,5 +1,5 @@
 /**
- * 
+ * CF575A
 */
 
 #define MXN (100020)
@@ -117,7 +117,9 @@ signed main() {
         sec *= ss[i] = make(s[i - 1], s[i]);
     xds.build();
 
-    std::sort(modify, modify + (m <<= 1));
+    m <<= 1;
+    modify[m++].v = K;
+    std::sort(modify, modify + m);
 
     ans[0][1] = 1;
     long long nw = 0, bl;
@@ -129,7 +131,6 @@ signed main() {
         ans *= xds.query(1, std::min(nw += n, K));
         xds.recover();
     }
-    if (nw < K) ans *= ksm((K - 1) / n - nw / n), ans *= xds.query(1, K);
 
     printf("%lld\n", ans[0][0]);
 
