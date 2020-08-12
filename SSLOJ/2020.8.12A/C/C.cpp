@@ -3,6 +3,7 @@
 #define INF (1000000000)
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <vector>
 
@@ -32,51 +33,36 @@ struct st {
     st& operator+=(st s) { return *this = (*this) + s; }
     st operator-(st s) { return (*this)(-s.o, -s.l); }
     bool operator==(st s) { return (this->o == s.o) && (this->l == s.l); }
-} f[MXN][2], s[MXN], m[MXN], m1[MXN], m2[MXN], ma[MXN], ans;
+} f[MXN][2], s[MXN], p, q, cq, cp, ans;
 
 int cnt[MXN];
 
 void dfs2(int x) {
     for (int i = son[x].size() - 1; i >= 0; --i)
-        dfs2(son[x][i]), s[x] += m[son[x][i]];
-
-    f[x][1] = st{INF, INF};
-    for (int i = son[x].size() - 1, k; i >= 0; --i)
-        k = son[x][i], f[x][1] = std::min(f[x][1], s[x] - m[k] + std::min(f[k][0](1, 1), f[k][1](0, 1)));
-
-    f[x][0] = s[x];
-    if (son[x].size() > 1) {
-        for (int i = son[x].size() - 1, k; i >= 0; --i)
-            cnt[x] += (f[son[x][i]][1] == m[son[x][i]]);
-        if (cnt[x] > 1)
-            f[x][0] += st{-cnt[x] / 2, 0};
-        else if (cnt[x] == 1) {
-            for (int i = son[x].size() - 1, k; i >= 0; --i)
-                if ((f[k = son[x][i]][0] == m[son[x][i]]) && (f[k][1].o - m[k].o <= 1))
-                    f[x][0] = std::min(f[x][0], s[x] - m[k] + f[k][1](-1, 0));
-        } else {
-            for (int i = son[x].size() - 1, j, k, l; i > 0; --i) {
-                k = son[x][i];
-                for (j = i - 1; j >= 0; --j) {
-                    l = son[x][j];
-                    f[x][0] = std::min(f[x][0], s[x] - m[k] - m[l] + f[k][1] + f[l][1] + st{-1, 0});
-                }
-            }
-        }
+        dfs2(son[x][i]);
+    p = st{0, 0}, q = st{INF, INF};
+    for (int i = son[x].size() - 1, k; i >= 0; --i) {
+        k = son[x][i];
+        cp = p, cq = q;
+        p = std::min(cp + f[k][0], cq + f[k][1] - st{1, 0});
+        q = std::min(cp + f[k][1], cq + f[k][0]);
     }
-
-    f[x][1] = std::min(f[x][0](1, 1), f[x][1]);
-
-    if (o[x] == 1) f[x][0] = st{INF, INF};
+    f[x][0] = std::min(p, q);
+    f[x][1] = std::min(p(1, 1), q(0, 1));
     if (o[x] == 0) f[x][1] = st{INF, INF};
-    // printf("%d %d|%15d %15d||%15d %15d|\n", x, o[x], f[x][0].o, f[x][0].l, f[x][1].o, f[x][1].l);
-    m[x] = std::min(f[x][0], f[x][1]);
+    if (o[x] == 1) f[x][0] = st{INF, INF};
+    // printf("%15d|%15d %15d|%15d %15d|%15d %15d|%15d %15d\n", x, p.o, p.l, q.o, q.l, f[x][0].o, f[x][0].l, f[x][1].o, f[x][1].l);
 }
 
 signed main() {
 #ifndef ONLINE_JUDGE
     freopen("C.in", "r", stdin);
 #endif
+
+    int size = 256 << 20;
+    char* p = (char*)malloc(size) + size;
+    __asm__("movl %0, %%esp\n" ::"r"(p));
+
     scanf("%d", &n);
 
     for (int i = 1, a, b, c, d; i < n; ++i)
