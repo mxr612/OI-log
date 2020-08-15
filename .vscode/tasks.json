@@ -27,7 +27,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${workspaceFolder}/.build/${fileBasenameNoExtension}"
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
             ],
             "options": {
                 "cwd": "/usr/bin"
@@ -51,6 +51,25 @@
                 "$gcc"
             ],
             "group": "build"
-        }
+        },
+        {
+            "type": "shell",
+            "label": "APIO",
+            "command": "/usr/bin/g++",
+            "args": [
+                // g++ -std=c++11 -o "%problem%" "grader.cpp" "%problem%.cpp" -O2 -lm
+                "-std=c++11",
+                "-o",
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+                "${fileDirname}/grader.cpp",
+                "${file}",
+                "-O2",
+                "-lm",
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "group": "build"
+        },
     ]
 }
