@@ -6,7 +6,7 @@
 #include "swap.h"
 
 int main() {
-    freopen("01.in", "r", stdin);
+    freopen("00.in", "r", stdin);
 
     int N, M;
     assert(2 == scanf("%d %d", &N, &M));
