@@ -54,7 +54,7 @@
         },
         {
             "type": "shell",
-            "label": "APIO",
+            "label": "APIO2020",
             "command": "/usr/bin/g++",
             "args": [
                 // g++ -std=c++11 -o "%problem%" "grader.cpp" "%problem%.cpp" -O2 -lm

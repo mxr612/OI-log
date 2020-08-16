@@ -60,7 +60,7 @@
             "preLaunchTask": "Windows"
         },
         {
-            "name": "APIO",
+            "name": "APIO2020",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -77,7 +77,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "APIO",
+            "preLaunchTask": "APIO2020",
             "miDebuggerPath": "/usr/bin/gdb"
         },
     ]
