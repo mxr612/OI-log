@@ -28,6 +28,7 @@
                 "${file}",
                 "-o",
                 "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+                "-O3",
             ],
             "options": {
                 "cwd": "/usr/bin"
@@ -50,6 +51,21 @@
             "problemMatcher": [
                 "$gcc"
             ],
+            "group": "build"
+        },
+        { // g++ test.cpp -o test
+            "type": "shell",
+            "label": "Linux-NOI",
+            "command": "/usr/bin/g++",
+            "args": [
+                "${file}",
+                "-std=c++11",
+                "-o",
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
             "group": "build"
         },
         {
