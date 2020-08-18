@@ -8,8 +8,9 @@
 
 #include <algorithm>
 
-int n, k, top, ans;
+int n, k, top;
 int cnt[MXN];
+long long ans;
 
 signed main() {
     freopen("C.in", "r", stdin);
@@ -20,7 +21,7 @@ signed main() {
         scanf("%d", &x), ++cnt[x], top = std::max(top, x);
 
     for (int i = top, j, res; i > 0; --i) {
-        for (j = i, res = 0; j <= top; ++j)
+        for (j = i, res = 0; j <= top; j += i)
             res += cnt[j];
         if (res >= k) {
             ans = i;
@@ -28,7 +29,7 @@ signed main() {
         }
     }
 
-    printf("%d", ans * k);
+    printf("%lld", ans * k);
 
     return 0;
 }
