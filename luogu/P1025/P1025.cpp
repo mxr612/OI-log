@@ -1,6 +1,6 @@
 /**
  * luogu P1025
- * 树的划分DP
+ * 数的划分DP
 */
 
 #define MXN (300)
