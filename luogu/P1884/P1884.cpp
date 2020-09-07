@@ -38,7 +38,7 @@ class XDS {
     int modify(Node *x, int L, int R, int W) {
         if (!x) return 0;
         if (x->r < L || R < x->l) return x->a;
-        return x->a = (L <= x->l && x->r <= R) ? ((x->w += W) ? (x->s) : (query(x->ls) + query(x->rs))) : (std::max(x->a, modify(x->ls, L, R, W) + modify(x->rs, L, R, W)));
+        return x->a = (L <= x->l && x->r <= R) ? ((x->w += W) ? (x->s) : (query(x->ls) + query(x->rs))) : (std::max((x->w) ? (x->a) : (0), modify(x->ls, L, R, W) + modify(x->rs, L, R, W)));
     }
 
    public:
@@ -51,7 +51,7 @@ long long ans;
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("P1884_2.in", "r", stdin);
+    freopen("P1884.in", "r", stdin);
 #endif
 
     scanf("%d", &N);
@@ -70,8 +70,7 @@ signed main() {
     while (!line.empty()) {
         now = line.top().x;
         while (!line.empty() && line.top().x == now) xds.modify(line.top()), line.pop();
-        if (!line.empty()) ans += (line.top().x - now) * xds.query(),
-                           printf("%d %lld\n", line.top().x - now, xds.query());
+        if (!line.empty()) ans += (line.top().x - now) * xds.query();
     }
 
     printf("%lld", ans);
