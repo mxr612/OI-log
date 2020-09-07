@@ -14,11 +14,11 @@
 int N;
 
 std::map<int, int> map;
-int rmap[MXN * 2], m;
+int rmap[MXN * 3], m;
 
 struct Line {
     int x, l, r, w;
-    bool operator<(const Line L) const { return x < L.x; }
+    bool operator<(const Line L) const { return x > L.x; }
 };
 std::priority_queue<Line> line;
 
@@ -34,49 +34,44 @@ class XDS {
         x->l = l, x->r = r, x->s = rmap[r + 1] - rmap[l];
         if (l < r) build(x->ls, l, (l + r) / 2), build(x->rs, (l + r) / 2 + 1, r);
     }
-    void modify(Node *x, int &L, int &R, int &W) {
-        if (!x || x->r < L || R < x->l) return;
-        if (L <= x->l && x->r <= R)
-            x->w += W;
-        else
-            modify(x->ls, L, R, W), modify(x->rs, L, R, W);
-        x->a = (x->w) ? (x->s) : ((x->ls && x->rs) ? (x->ls->a + x->rs->a) : (0));
+    int query(Node *x) { return (x) ? (x->a) : (0); }
+    int modify(Node *x, int L, int R, int W) {
+        if (!x) return 0;
+        if (x->r < L || R < x->l) return x->a;
+        return x->a = (L <= x->l && x->r <= R) ? ((x->w += W) ? (x->s) : (query(x->ls) + query(x->rs))) : (std::max(x->a, modify(x->ls, L, R, W) + modify(x->rs, L, R, W)));
     }
 
    public:
     void build(int n) { build(root, 1, n - 1); }
-    void modify(Line L) { modify(root, map[L.l], --map[L.r], L.w), ++map[L.r]; }
-    long long query() { return root->a; }
+    void modify(Line L) { modify(root, map[L.l], map[L.r] - 1, L.w); }
+    long long query() { return query(root); }
 } xds;
 
 long long ans;
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("P1884.in", "r", stdin);
+    freopen("P1884_2.in", "r", stdin);
 #endif
 
     scanf("%d", &N);
 
     for (int i = 0, x[2], y[2]; i < N; ++i) {
         scanf("%d%d%d%d", &x[0], &y[0], &x[1], &y[1]);
-        ++map[x[0]], ++map[x[1]], ++map[y[0]], ++map[y[1]];
-        line.push(Line{x[0], y[1], y[0]}), line.push(Line{x[1], y[1], y[0]});
+        ++map[y[0]], ++map[y[1]];
+        line.push(Line{x[0], y[1], y[0], +1}), line.push(Line{x[1], y[1], y[0], -1});
     }
-    for (auto i : map)
+    for (auto &i : map)
         rmap[i.second = ++m] = i.first;
-
-    for (int i = 1; i <= m; ++i)
-        printf("%d\n", rmap[i]);
 
     xds.build(m);
 
-    int las, now = line.top().x;
+    int now = line.top().x;
     while (!line.empty()) {
-        las = now, now = line.top().x;
+        now = line.top().x;
         while (!line.empty() && line.top().x == now) xds.modify(line.top()), line.pop();
-        ans += (now - las) * xds.query();
-        printf("%lld\n", xds.query());
+        if (!line.empty()) ans += (line.top().x - now) * xds.query(),
+                           printf("%d %lld\n", line.top().x - now, xds.query());
     }
 
     printf("%lld", ans);
