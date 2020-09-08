@@ -22,7 +22,7 @@ signed main() {
     freopen(IN, "w", stdout);
 
     srand(time(NULL));
-    printf("%d\n", N);
+    printf("%d %d\n", N, M);
     for (int i = 0, j; i < N; ++i)
         printf("%lld ", ID);
     putchar('\n');
@@ -34,7 +34,7 @@ signed main() {
     for (int i = 0; i < M; ++i) {
         do
             if ((r = ID) < (l = ID)) l ^= r ^= l ^= r;
-        while (r - l LIM a);
+        while (a LIM r - l);
         if (TYPE == 0) printf("%d %lld %lld\n", rand() & 1, l, r);
         if (TYPE == 1) printf("0 %lld %lld\n", l, r);
         if (TYPE == 2) printf("1 %lld %lld\n", l, r);
