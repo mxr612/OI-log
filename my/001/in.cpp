@@ -2,19 +2,23 @@
  * 001make
 */
 
-#define IN ("19.in")
+#define IN ("05.in")
 
-#define N (1000000)
-#define M (1000000)
+#define N (1000)
+#define M (1000)
 #define TYPE (0)
-#define TOP (100000000)
+#define TOP (1005)
 #define LIM >
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-long long a = 1e10, b = 1e5, mod, l, r;
+#include <map>
+
+std::map<long long, int> map;
+
+long long cp, a = 1e10, b = 1e5, mod, l, r;
 
 #define ID ((a * (1 + (rand() % 9))) + (((b * rand()) + rand()) % a))
 
@@ -23,8 +27,11 @@ signed main() {
 
     srand(time(NULL));
     printf("%d %d\n", N, M);
-    for (int i = 0, j; i < N; ++i)
+    for (int i = 0, j; i < N; ++i) {
+        while (map.count(cp = ID))
+            ;
         printf("%lld ", ID);
+    }
     putchar('\n');
 
     for (int i = 0; i < N; ++i)
