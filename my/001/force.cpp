@@ -1,6 +1,6 @@
 
-#define ii ("05.in")
-#define oo ("05.out")
+#define ii ("yl1.in")
+#define oo ("yl1.out")
 
 #define MXN (1000020)
 
