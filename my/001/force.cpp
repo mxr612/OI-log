@@ -1,6 +1,6 @@
 
-#define ii ("yl1.in")
-#define oo ("yl1.out")
+#define ii ("00.in")
+#define oo ("00.out")
 
 #define MXN (1000020)
 
@@ -30,7 +30,7 @@ signed main() {
             is = true;
             for (j = 0; j < n; ++j)
                 if (l <= id[j] && id[j] <= r)
-                    is &= arr[i] > 0;
+                    is &= (arr[j] > 0);
             if (is)
                 for (j = 0; j < n; ++j)
                     if (l <= id[j] && id[j] <= r)
