@@ -2,12 +2,12 @@
  * 001make
 */
 
-#define IN ("05.in")
+#define IN ("19.in")
 
-#define N (1000)
-#define M (1000)
+#define N (1000000)
+#define M (1000000)
 #define TYPE (0)
-#define TOP (1005)
+#define TOP (10000)
 #define LIM >
 
 #include <stdio.h>
