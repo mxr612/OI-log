@@ -1,5 +1,5 @@
 git config --global user.email "mxxr612@gmail.com"
-git config --global user.name "MXR612"
+git config --global user.name "mxr612"
 find . -name "*.c*" |wc -l
 find . -name "*.c*" |xargs cat|wc -l
 find . -name "*.c*" |xargs cat|grep -v ^$|wc -l
