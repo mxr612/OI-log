@@ -27,7 +27,8 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${workspaceFolder}/.build/${fileBasenameNoExtension}"
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+                "-O3",
             ],
             "options": {
                 "cwd": "/usr/bin"
@@ -51,6 +52,40 @@
                 "$gcc"
             ],
             "group": "build"
-        }
+        },
+        { // g++ test.cpp -o test
+            "type": "shell",
+            "label": "Linux-NOI",
+            "command": "/usr/bin/g++",
+            "args": [
+                "${file}",
+                "-std=c++11",
+                "-o",
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "APIO2020",
+            "command": "/usr/bin/g++",
+            "args": [
+                // g++ -std=c++11 -o "%problem%" "grader.cpp" "%problem%.cpp" -O2 -lm
+                "-std=c++11",
+                "-o",
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+                "${fileDirname}/grader.cpp",
+                "${file}",
+                "-O2",
+                "-lm",
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "group": "build"
+        },
     ]
 }

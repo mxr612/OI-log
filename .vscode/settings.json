@@ -69,11 +69,17 @@
         "shared_mutex": "cpp",
         "thread": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "any": "cpp",
+        "bit": "cpp",
+        "charconv": "cpp",
+        "variant": "cpp"
     },
     "editor.rulers": [],
     "editor.formatOnSave": true,
     "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4,ColumnLimit: 0}",
     "html.format.wrapLineLength": 0,
-    "editor.formatOnPaste": true
+    "editor.formatOnPaste": true,
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSaveMode": "modifications"
 }
