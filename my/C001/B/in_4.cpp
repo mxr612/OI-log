@@ -1,11 +1,11 @@
 /**
  * Amazing John的P30拍照贼棒
- * in_0_6_7
+ * in_4
 */
 
-#define MXN (1000020)
+#define MXN (10000020)
 
-#define OO ("19.in")
+#define OO ("08.in")
 
 #define N (1000000)
 #define A (1000000)
@@ -25,7 +25,7 @@ signed main() {
 
     printf("%d\n", N);
 
-    printf("%d %d\n", c = (rand() % (N - 1)) + 2, rand() % A);
+    printf("%d %d\n", c = (rand() % (N - 1)) + 2, 0);
     for (int i = 2, v; i <= N; ++i) {
         do
             v = (rand() % (i - 1)) + 1;
