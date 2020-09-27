@@ -80,6 +80,5 @@
     "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4,ColumnLimit: 0}",
     "html.format.wrapLineLength": 0,
     "editor.formatOnPaste": true,
-    "files.autoSave": "onFocusChange",
-    "editor.formatOnSaveMode": "modifications"
+    "files.autoSave": "onFocusChange"
 }
