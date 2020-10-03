@@ -10,8 +10,6 @@
 
 #include <algorithm>
 
-int n, m;
-
 struct ID {
     long long v;
     int w;
@@ -69,33 +67,54 @@ class XDS {
     }
 
    public:
-    void build(int n) { build(root, 0, n - 1); }
-    int modify(int l, int r, int w) {
+    void build(register int n) { build(root, 0, n - 1); }
+    int modify(register int l, register int r, register int w) {
         if (l <= r && (w > 0 || query(root, l, r) == r - l + 1))
             modify(root, l, r, w);
         return root->a;
     }
 } xds;
 
+long long gett() {
+    long long x = 0;
+    register char c = getchar();
+    while (c < '0' || '9' < c) c = getchar();
+    while ('0' <= c && c <= '9')
+        x = x * 10 + c - '0', c = getchar();
+    return x;
+}
+char s[20];
+void putt(register int x) {
+    if (x) {
+        register int i = 0;
+        while (x) s[++i] = (x % 10) + '0', x /= 10;
+        while (i) putchar(s[i--]);
+    } else
+        putchar('0');
+    putchar('\n');
+}
+
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("yl1.in", "r", stdin);
+    freopen("00.in", "r", stdin);
 #endif
-    scanf("%d%d", &n, &m);
 
-    for (int i = 0; i < n; ++i)
-        scanf("%lld", &id[i].v);
-    for (int i = 0; i < n; ++i)
-        scanf("%d", &id[i].w);
+    register int n, m;
+    n = gett(), m = gett();
+
+    for (register int i = 0; i < n; ++i)
+        id[i].v = gett();
+    for (register int i = 0; i < n; ++i)
+        id[i].w = gett();
     std::sort(id, id + n);
-    for (int i = 0; i < n; ++i)
+    for (register int i = 0; i < n; ++i)
         bound[i] = id[i].v;
     xds.build(n);
     int o;
-    long long l, r;
+    register long long l, r;
     while (m-- > 0) {
-        scanf("%d%lld%lld", &o, &l, &r);
-        printf("%d\n", xds.modify(std::lower_bound(bound, bound + n, l) - bound, std::upper_bound(bound, bound + n, r) - bound - 1, (o) ? (-1) : (1)));
+        o = gett(), l = gett(), r = gett();
+        putt(xds.modify(std::lower_bound(bound, bound + n, l) - bound, std::upper_bound(bound, bound + n, r) - bound - 1, (o) ? (-1) : (1)));
     }
 
     return 0;

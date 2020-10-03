@@ -1,3 +1,7 @@
+
+#define II ("09.in")
+#define OO ("09.out")
+
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
@@ -65,6 +69,8 @@ bool cmp(A x, A y) {
     return b[x.id] < b[y.id];
 }
 int main() {
+    freopen(II, "r", stdin);
+    freopen(OO, "w", stdout);
     scanf("%d%d", &n, &q);  //printf("%d %d\n",n,q);
     for (int i = 1; i <= n; i++) scanf("%lld", &b[i]);
     for (int i = 1; i <= n; i++) scanf("%d", &a[i].v), a[i].id = i;

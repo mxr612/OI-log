@@ -2,49 +2,53 @@
  * 001make
 */
 
-#define IN ("19.in")
+#define II ("09.in")
 
 #define N (1000000)
 #define M (1000000)
+#define LEN (10000000)
+#define LOW (0)
+#define TOP (10)
 #define TYPE (0)
-#define TOP (10000)
-#define LIM >
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 #include <map>
 
-std::map<long long, int> map;
+#define ID (((((long long)rand()) * rand()) % LEN) + 10000)
 
-long long cp, a = 1e10, b = 1e5, mod, l, r;
-
-#define ID ((a * (1 + (rand() % 9))) + (((b * rand()) + rand()) % a))
+std::map<long long, long long> chk;
 
 signed main() {
-    freopen(IN, "w", stdout);
+    freopen(II, "w", stdout);
 
     srand(time(NULL));
+
     printf("%d %d\n", N, M);
-    for (int i = 0, j; i < N; ++i) {
-        while (map.count(cp = ID))
+    unsigned long long x;
+    for (int i = 0; i < N; ++i) {
+        while (chk.count(x = ID))
             ;
-        printf("%lld ", ID);
+        ++chk[x];
+        printf("%llu ", x);
     }
     putchar('\n');
-
     for (int i = 0; i < N; ++i)
-        printf("%d ", rand() % TOP);
+        printf("%d ", LOW + (rand() % TOP));
     putchar('\n');
-
-    for (int i = 0; i < M; ++i) {
-        do
+    unsigned long long l, r;
+    for (int i = 0, o; i <= M; ++i) {
+        do {
             if ((r = ID) < (l = ID)) l ^= r ^= l ^= r;
-        while (a LIM r - l);
-        if (TYPE == 0) printf("%d %lld %lld\n", rand() & 1, l, r);
-        if (TYPE == 1) printf("0 %lld %lld\n", l, r);
-        if (TYPE == 2) printf("1 %lld %lld\n", l, r);
+        } while (r - l > (sqrt(LEN)));
+        if (TYPE)
+            o = (TYPE == 1) ? (0) : (1);
+        else
+            o = !((rand() & 1) && (rand() & 1));
+        printf("%d %llu %llu\n", o, l, r);
     }
 
     return 0;
