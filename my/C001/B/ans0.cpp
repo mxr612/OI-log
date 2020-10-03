@@ -4,10 +4,10 @@
  * 0-10pts搜索
 */
 
-#define MXN (10000020)
+#define MXN (20)
 
-#define II ("02.in")
-#define OO ("02.out")
+#define II ("01.in")
+#define OO ("01.out")
 
 #include <stdio.h>
 #include <string.h>
@@ -20,7 +20,7 @@ struct Edge {
     int u, v, w;
 } edge[MXN];
 
-bool vis[MXN];
+bool vis[1 << MXN][MXN];
 
 signed main() {
     freopen(II, "r", stdin);
@@ -32,9 +32,9 @@ signed main() {
         edge[i].u = i + 1, scanf("%d%d", &edge[i].v, &edge[i].w);
 
     for (int i = 0, j, s; i < (1 << n); ++i) {
-        for (memset(vis, 0, sizeof(vis)), s = j = 0; j < n; ++j)
-            if (i & (1 << j) && !vis[edge[j].u] && !vis[edge[j].v])
-                vis[edge[j].u] = vis[edge[j].v] = true, s += edge[j].w;
+        for (s = j = 0; j < n; ++j)
+            if (i & (1 << j) && !vis[i][edge[j].u] && !vis[i][edge[j].v])
+                vis[i][edge[j].u] = vis[i][edge[j].v] = true, s += edge[j].w;
         ans = std::max(ans, s);
     }
 
