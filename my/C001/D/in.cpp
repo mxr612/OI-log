@@ -2,10 +2,12 @@
  * 
 */
 
-#define II ("11.in")
+#define II ("05.in")
 
-#define LOW (15)
+#define LOW (500000)
 #define TOP (1000000)
+#define N (18)
+#define M (20)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,8 +20,10 @@ signed main() {
 
     srand(time(NULL));
 
-    n = LOW + (rand() % (TOP - LOW + 1));
-    m = LOW + (rand() % (TOP - LOW + 1));
+    // n = LOW + (rand() % (TOP - LOW + 1));
+    // m = LOW + (rand() % (TOP - LOW + 1));
+    n = N;
+    m = M;
 
     for (int i = 0; i < n; ++i)
         putchar((char)((rand() % ('z' - 'a' + 1)) + 'a'));

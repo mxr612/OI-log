@@ -3,14 +3,11 @@
  * 子序列自动机&Trie
 */
 
-#define II ("11.in")
-#define OO ("11.out")
-
 #include <stdio.h>
 #include <string.h>
 
 #include <iostream>
-#include <string>.
+#include <string>
 
 std::string a, b;
 
@@ -19,41 +16,48 @@ class SubSeq {
         Node* next['z' - 'a' + 1];
     } * root;
 
+    Node* p;
+    char c;
+    int res;
+
    public:
     void build(std::string s) {
-        Node* p[2] = {};
+        Node* P[2] = {};
         for (int i = s.length() - 1, j, x, y; i >= 0; --i) {
-            x = i & 1, y = !x, p[x] = (Node*)calloc(sizeof(Node), 1);
-            for (j = 0; p[y] && j <= 'z' - 'a'; ++j)
-                p[x]->next[j] = p[y]->next[j];
-            p[x]->next[s[i + 1] - 'a'] = p[y];
+            x = i & 1, y = !x, P[x] = (Node*)calloc(sizeof(Node), 1);
+            for (j = 0; P[y] && j <= 'z' - 'a'; ++j)
+                P[x]->next[j] = P[y]->next[j];
+            P[x]->next[s[i + 1] - 'a'] = P[y];
         }
         root = (Node*)calloc(sizeof(Node), 1);
-        for (int i = 0; p[0] && i <= 'z' - 'a'; ++i)
-            root->next[i] = p[0]->next[i];
-        root->next[s[0] - 'a'] = p[0];
+        for (int i = 0; P[0] && i <= 'z' - 'a'; ++i)
+            root->next[i] = P[0]->next[i];
+        root->next[s[0] - 'a'] = P[0];
     }
+
     int query(std::string s) {
-        Node* p = root;
-        int res = 0;
+        p = root, c = 0, res = 0;
         for (auto i : s)
-            if (p = p->next[i - 'a'])
-                ++res;
+            if ((c - i) && (p = p->next[i - 'a']))
+                ++res, c = i;
             else
                 break;
         return res;
     }
 } SS;
+
 class Trie {
     struct Node {
         Node* next['z' - 'a' + 1];
     }* root = (Node*)calloc(sizeof(Node), 1);
 
+    Node* p;
+    char c;
+    int res;
+
    public:
     int insert(std::string s) {
-        Node* p = root;
-        char c = 0;
-        int res = 0;
+        p = root, c = 0, res = 0;
         for (auto i : s)
             if (i - c)
                 p = ((p->next[i - 'a']) ? (p->next[i - 'a']) : (++res, p->next[i - 'a'] = (Node*)calloc(sizeof(Node), 1)));
@@ -68,10 +72,7 @@ long long ans;
 int la = 1, lb;
 
 signed main() {
-    freopen(II, "r", stdin);
-    freopen(OO, "w", stdout);
-
-    std::cin >> a >> b;
+        std::cin >> a >> b;
 
     SS.build(a);
 
