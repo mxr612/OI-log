@@ -63,7 +63,7 @@ class ACA {
 
 signed main() {
 #ifndef ONLINE_JUDGE
-    freopen("yl1.in", "r", stdin);
+    freopen("11.in", "r", stdin);
 #endif
 
     std::cin >> a >> b;
