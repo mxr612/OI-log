@@ -114,7 +114,7 @@ signed main() {
     register long long l, r;
     while (m-- > 0) {
         o = gett(), l = gett(), r = gett();
-        putt(xds.modify(std::lower_bound(bound, bound + n, l) - bound, std::upper_bound(bound, bound + n, r) - bound - 1, (o) ? (-1) : (1)));
+        putt(n - (xds.modify(std::lower_bound(bound, bound + n, l) - bound, std::upper_bound(bound, bound + n, r) - bound - 1, (o) ? (-1) : (1))));
     }
 
     return 0;

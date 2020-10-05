@@ -1,6 +1,6 @@
 
-#define II ("09.in")
-#define OO ("09.out")
+#define II ("yl1.in")
+#define OO ("yl1.out")
 
 #include <bits/stdc++.h>
 #define ll long long
@@ -92,8 +92,8 @@ int main() {
         if (l <= r && (query(1, 1, n, l, r) != 0 || t == 1))
             ins(1, 1, n, l, r, t);
         if (tr[1].mi == 0)
-            printf("%d\n", n - tr[1].num);
+            printf("%d\n", tr[1].num);
         else
-            printf("%d\n", n);
+            printf("%d\n", 0);
     }
 }
