@@ -46,7 +46,7 @@ void dp(int x, int fa) {
     for (auto i : edge[x])
         if (i.first != fa && !inc[i.first])
             dp(i.first, x),
-                f[x][1] = std::max(f[x][1], f[x][0] + f[i.first][0] + i.second),
+                f[x][1] = std::max(f[x][1] + std::max(f[i.first][0], f[i.first][1]), f[x][0] + f[i.first][0] + i.second),
                 f[x][0] += std::max(f[i.first][0], f[i.first][1]);
 }
 
