@@ -1,50 +1,82 @@
 /**
  * luogu UVA437
+ * 巴比伦塔 The Tower of Babylon
+ * DAG上DP
 */
 
-#define MXN (50)
+#define MXN (128)
 
 #include <stdio.h>
 #include <string.h>
 
-#include <vector>
+#include <algorithm>
+#include <set>
 
-int t, n;
-
-class Graph {
-    struct Node {
-        int x, y, z;
-    } node[3 * MXN];
-    int top = 0;
-    std::vector<int> edge[3 * MXN];
-    int inde[MXN] = {};
-
-   public:
-    void clear() {
-        top = 0;
+struct CUB {
+    int x, y, z;
+    bool operator<(const CUB c) const {
+        return x < c.x && y < c.y;
     }
-    void add(int x, int y, int z) {
-        node[++top] = Node{std::max(x, y), std::min(x, y), z};
-        edge[top].clear(), inde[top] = 0;
-        for (int i = 1; i < top; ++i)
-            if ((node[i].x < node[top].x && node[i].y < node[top].y))
-                edge[top].push_back(i), ++inde[i];
-            else if ((node[i].x > node[top].x && node[i].y > node[top].y))
-                edge[i].push_back(top), ++inde[top];
+    CUB& operator=(const CUB c) {
+        x = std::min(c.x, c.y);
+        y = std::max(c.x, c.y);
+        z = c.z;
+        return *this;
     }
-} graph;
+} cub[MXN] = {};
+int tot;
+
+struct Edge {
+    int v;
+    Edge* next;
+} * edge[MXN] = {};
+void add_edge(int u, int v) {
+    Edge* x = NULL;
+    while (!x) x = (Edge*)calloc(sizeof(Edge), 1);
+    x->v = v, x->next = edge[u], edge[u] = x;
+}
+
+int ent[MXN];
+
+std::set<int> set;
+
+int ans[MXN];
 
 signed main() {
 #ifndef ONLINE_JUDGE
     freopen("UVA437.in", "r", stdin);
 #endif
 
-    while (scanf("%d", &n), n) {
-        graph.clear();
-        for (int i = 0, x, y, z; i < n; ++i)
-            scanf("%d%d%d", &x, &y, &z), graph.add(x, y, z), graph.add(y, z, x), graph.add(z, x, y);
+    int t = 0, n, answ;
 
-        printf("Case %d: maximum height = 40\n", ++t);
+    while (scanf("%d", &n), n) {
+        tot = answ = 0;
+        memset(edge, 0, sizeof(edge));
+        memset(ent, 0, sizeof(ent));
+        set.empty();
+        memset(ans, 0, sizeof(ans));
+        for (int i = 0, x, y, z; i < n; ++i)
+            scanf("%d%d%d", &x, &y, &z),
+                cub[tot++] = CUB{x, y, z},
+                cub[tot++] = CUB{y, z, x},
+                cub[tot++] = CUB{z, x, y};
+        for (int i = 0, j; i < tot; ++i)
+            for (j = 0; j < tot; ++j)
+                if (cub[i] < cub[j])
+                    add_edge(i, j), ++ent[j];
+        for (int i = 0; i < tot; ++i)
+            if (!ent[i])
+                set.insert(i), ans[i] = cub[i].z;
+        int x;
+        while (set.size()) {
+            set.erase(x = *set.begin());
+            for (Edge* i = edge[x]; i; i = i->next)
+                if (ans[i->v] = std::max(ans[i->v], ans[x] + cub[i->v].z), !--ent[i->v])
+                    set.insert(i->v);
+        }
+        for (int i = 0; i < tot; ++i)
+            answ = std::max(answ, ans[i]);
+        printf("Case %d: maximum height = %d\n", ++t, answ);
     }
 
     return 0;
