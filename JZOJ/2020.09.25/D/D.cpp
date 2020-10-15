@@ -4,6 +4,7 @@
  * JZOJ1460
 */
 
+#include <math.h>
 #include <stdio.h>
 
 long long N, ans = 0;
@@ -15,11 +16,12 @@ signed main() {
 
     scanf("%lld", &N);
 
-    if (N <= 10000000) {
+    if (N <= 20000) {
         for (long long i = 1; i <= N; ++i)
             if (((i * i) % N) == 1)
                 printf("%lld\n", i);
     } else {
+        long long d;
     }
 
     return 0;

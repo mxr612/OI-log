@@ -2,6 +2,7 @@
  * JZOJ2020.09.25
  * C求和
  * JZOJ1164
+ * 容斥
 */
 
 #include <math.h>
@@ -28,9 +29,9 @@ signed main() {
     } else {
         A = N;
         for (int i = 2, k; i <= sqrt(A); ++i)
-            if (A % i == 0)
-                for (p[tot++] = i; A % i == 0; A /= i)
-                    ;
+            if ((A % i == 0) && (p[tot++] = i))
+                while (A % i == 0)
+                    A /= i;
         if (A > 1) p[tot++] = A;
         for (int i = 1, j, s, c; i < (1 << tot); ++i) {
             for (s = 1, c = 0, j = 0; j < tot; ++j)
