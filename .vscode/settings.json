@@ -73,7 +73,8 @@
         "any": "cpp",
         "bit": "cpp",
         "charconv": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "queue": "cpp"
     },
     "editor.rulers": [],
     "editor.formatOnSave": true,
