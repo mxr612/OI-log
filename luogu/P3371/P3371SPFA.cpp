@@ -45,21 +45,21 @@ unsigned path[MXN];
 
 class SPFAque {
     bool isin[MXN];
-    long long sum = 0, siz = 0;
+    int ww[MXN], sum = 0, siz = 0;
     std::deque<int> que;
 
    public:
     bool empty() { return !siz; }
-    void push(int x, int w) {
+    void push(int x, long long w) {
         if (isin[x]) return;
-        if (w * siz < sum)
+        if (w * siz <= sum)
             que.push_front(x);
         else
             que.push_back(x);
-        isin[x] = true, sum += w, ++siz;
+        sum += (ww[x] = w), ++siz, isin[x] = true;
     }
     void pop() {
-        if (!empty()) isin[que.front()] = false, que.pop_front(), --siz;
+        if (!empty()) --siz, sum -= ww[que.front()], isin[que.front()] = false, que.pop_front();
     }
     int top() { return que.front(); }
 } que;
