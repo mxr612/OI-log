@@ -37,6 +37,15 @@ class ZXS {
         if (X->rs) X->w += X->rs->w;
     }
 
+    void build(Node *&x, int l, int r) {
+        if (r < l) return;
+        x = mp();
+        if (l < r)
+            build(x->ls, l, (l + r) / 2), build(x->rs, (l + r) / 2 + 1, r), merge_up(x);
+        else
+            ++x->w;
+    }
+
     void insert(Node *X, Node *&x, const int V, int l, int r) {
         if (r < l) return;
         if (r < V || V < l)
@@ -51,27 +60,24 @@ class ZXS {
             ++x->w;
     }
 
-    bool query(Node *X, Node *x, const int L, const int R, int l, int r) {
-        if (!x || r < l || r < L || R < l || R < L) return false;
-        if (L <= l && r <= R) return (X) ? (X->w + x->w) : (x->w);
-        return (X) ? (query(X->ls, x->ls, L, R, l, (l + r) / 2) || query(X->rs, x->rs, L, R, (l + r) / 2 + 1, r))
-                   : (query(NULL, x->ls, L, R, l, (l + r) / 2) || query(NULL, x->rs, L, R, (l + r) / 2 + 1, r));
+    int query(Node *X, Node *x, const int L, const int R, int l, int r) {
+        if (!x || r < l || r < L || R < l || R < L) return 0;
+        if (l < r) return std::max(query(X->ls, x->ls, L, R, l, (l + r) / 2), query(X->rs, x->rs, L, R, (l + r) / 2 + 1, r));
+        return (x->w - X->w > 0) * l;
     }
 
    public:
-    inline ZXS(int n) { ll = 1, rr = n, tot = 0; }
+    inline ZXS(int n) { build(root[tot = 0], ll = 1, rr = n); }
     inline void insert(const int x) { ++tot, insert(root[tot - 1], root[tot], x, ll, rr); }
-    bool query(const int l, const int r, const int k) {
-        ++tot, root[tot] = root[tot - 1];
-        return query(root[tot - k], root[tot], std::min(l, r) - 1, std::max(l, r), ll, rr);
-    }
+    bool query(const int l, const int r, const int k) { return ++tot, query(root[std::max(0, tot - k)], root[tot] = root[tot - 1], std::min(l, r), std::max(l, r), ll, rr); }
 };
 
 signed main() {
     freopen("snow.in", "r", stdin);
     // freopen("snow.out", "r", stdout);
 
-    int n, m, q, ans;
+    int n, m, q;
+    unsigned ans;
 
     scanf("%d%d%d", &n, &m, &q);
 
@@ -91,10 +97,14 @@ signed main() {
             case 3:
                 scanf("%d%d%d%d%d", &xi, &yi, &xii, &yii, &k);
                 ans = -1;
-                if (R.query(xi, xi, k) || (C.query(yii, yii, k) || (R.query(xii, xii, k) && C.query(yi, yii, k))))
-                    ans = abs(xi - xii) + abs(yi - yii) + 1;
-                if (C.query(yi, yi, k) || (R.query(xii, xii, k) || (C.query(yii, yii, k) && R.query(xi, xii, k))))
-                    ans = abs(xi - xii) + abs(yi - yii) + 1;
+                if (xi == xii && R.query(xi, xii, k)) ans = abs(yi - yii);
+                if (yi == yii && C.query(yi, yii, k)) ans = abs(xi - xii);
+                if ((R.query(xi, xi, k) && R.query(yii, yii, k)) || (R.query(xii, xii, k) && C.query(yi, yi, k)))
+                    ans = abs(xi - xii) + abs(yi - yii);
+                if (R.query(xi, xi, k) && R.query(xii, xii, k)) {
+                }
+                if (C.query(xi, xi, k) && C.query(xii, xii, k)) {
+                }
                 printf("%d\n", ans);
                 break;
             default:;
