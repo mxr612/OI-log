@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-const long long MXN = 100024,
+const long long MXN = 1000024,
                 MD = 1000000007;
 
 long long R[MXN], C[MXN], ans = 0;
@@ -14,7 +14,7 @@ char opt[10];
 
 signed main() {
     freopen("game.in", "r", stdin);
-    freopen("game.out", "r", stdout);
+    freopen("game.out", "w", stdout);
 
     int N, M, K, X, Y;
 
@@ -29,9 +29,13 @@ signed main() {
         else  //R
             R[X - 1] = (R[X - 1] * Y) % MD;
 
-    for (int i = 0, j; i < N; ++i)
-        for (j = 1; j <= M; ++j)
-            ans = (ans + (i * M + j) % MD * R[i] % MD * C[j]) % MD;
+    long long bI = 0, bII = 0;
+    for (int i = 1; i <= M; ++i)
+        bI = (bI + C[i]) % MD,
+        bII = (bII + i * C[i]) % MD;
+
+    for (int i = 0; i < N; ++i)
+        ans = (ans + i * R[i] % MD * M % MD * bI + R[i] * bII) % MD;
 
     printf("%lld", ans);
 
