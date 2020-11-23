@@ -59,7 +59,7 @@
             "command": "/usr/bin/g++",
             "args": [
                 "${file}",
-                "-std=c++11",
+                "-std=c++",
                 "-o",
                 "${workspaceFolder}/.build/${fileBasenameNoExtension}",
             ],
