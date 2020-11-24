@@ -73,7 +73,7 @@ signed main() {
         if (res < ans[1]) ans[0] = i, ans[1] = res;
     }
 
-    printf("%d %d", ans[0], ans[1]);
+    printf("%d %d\n", ans[0], ans[1]);
 
     return 0;
 }
