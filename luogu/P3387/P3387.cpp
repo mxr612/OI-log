@@ -53,12 +53,9 @@ void tarjan(int v) {
                 low[v] = std::min(low[v], low[i->v]);
         else if (vis[i->v])
             low[v] = std::min(low[v], low[i->v]);
-    if (low[v] == v) {
-        ++ton;
-        do
+    if (low[v] == dfn[v])
+        for (++ton; top && dfn[sta[top]] >= dfn[v]; --top)
             nn[sta[top]] = ton, vis[sta[top]] = false;
-        while (sta[top--] >= 0 && top);
-    }
 }
 
 int ww[MXN], ind[MXN], f[MXN];
