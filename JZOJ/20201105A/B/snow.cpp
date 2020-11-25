@@ -9,13 +9,13 @@ const int MXN = 500012;
 
 template <typename TYP>
 class MemPool {
-    const int SIZE = 1000;
+    const int SIZ = 1000;
     TYP *p, *e;
 
     TYP *&get_mem() {
         p = NULL;
-        while (!p) p = (TYP *)calloc(sizeof(TYP), SIZE);
-        return e = p + SIZE, p;
+        while (!p) p = (TYP *)calloc(sizeof(TYP), SIZ);
+        return e = p + SIZ, p;
     }
 
    public:

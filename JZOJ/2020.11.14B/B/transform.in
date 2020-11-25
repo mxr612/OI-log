@@ -1,0 +1,12 @@
+3
+0.5 0
+2.5 2
+-4.5 1
+Trans(1.5,-1)
+Loop(2)
+Trans(1,1)
+Loop(2)
+Rotate(90,0,0)
+End
+Scale(2,3)
+End
