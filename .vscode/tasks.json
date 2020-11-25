@@ -21,8 +21,24 @@
         },
         {
             "type": "shell",
-            "label": "Linux",
+            "label": "g++",
             "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+                "-O3",
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "clang",
+            "command": "/usr/bin/clang",
             "args": [
                 "-g",
                 "${file}",

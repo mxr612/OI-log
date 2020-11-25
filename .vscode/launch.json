@@ -5,7 +5,39 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "clang",
+        },
+        {
+            "name": "Linux-clang/gdb",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "clang",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Linux-g++/gdb",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -22,7 +54,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Linux",
+            "preLaunchTask": "g++",
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
