@@ -8,7 +8,8 @@
 
 const int MXN = 500012;
 
-int n, m, ans;
+int n, m;
+long long ans;
 
 template <typename TYP>
 class MemPool {
@@ -39,20 +40,19 @@ int dep[MXN], arr[MXN][22];
 
 void pre(int x, int f, int d) {
     dep[x] = d;
-    arr[x][0] = x;
     for (Edge *i = edge[x]; i; i = i->next)
         if (i->v != f)
-            arr[i->v][1] = x, pre(i->v, x, d + 1);
+            arr[i->v][0] = x, pre(i->v, x, d + 1);
 }
 int lca(int x, int y) {
     if (dep[x] < dep[y]) x ^= y ^= x ^= y;
-    for (int i = 20; i > 0; --i)
+    for (int i = 20; i >= 0; --i)
         if (dep[arr[x][i]] >= dep[y])
             x = arr[x][i];
-    for (int i = 20; i > 0; --i)
-        if (dep[arr[x][i]] != dep[arr[y][i]])
-            x = arr[x][i];
-    return (x == y) ? (x) : (arr[x][1]);
+    for (int i = 20; i >= 0; --i)
+        if (arr[x][i] != arr[y][i])
+            x = arr[x][i], y = arr[y][i];
+    return (x == y) ? (x) : (arr[x][0]);
 }
 
 int tag[MXN] = {};
@@ -74,18 +74,21 @@ signed main() {
         scanf("%d%d", &x, &y), add_edge(x, y), add_edge(y, x);
 
     pre(1, 0, 1);
-    for (int i = 2, j; i < 20; ++i)
+    for (int i = 0, j; i < 20; ++i)
         for (j = 1; j <= n; ++j)
-            arr[j][i + 1] = arr[arr[arr[j][i]][i]][1];
+            arr[j][i + 1] = arr[arr[j][i]][i];
 
-    for (int i = 0, x, y, z; i < m; ++i)
-        scanf("%d%d", &x, &y), z = lca(x, y),
-                               ++tag[x], ++tag[y], tag[z] -= 2;
+    for (int i = 0, x, y; i < m; ++i)
+        scanf("%d%d", &x, &y),
+            ++tag[x], ++tag[y], tag[lca(x, y)] -= 2;
     dfs(1, 0);
     for (int i = 2; i <= n; ++i)
-        ans += (sum[i] <= 1);
+        if (sum[i] == 0)
+            ans += m;
+        else if (sum[i] == 1)
+            ++ans;
 
-    printf("%d", ans);
+    printf("%lld", ans);
 
     return 0;
 }
