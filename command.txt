@@ -4,4 +4,4 @@ find . -name "*.c*" |wc -l
 find . -name "*.c*" |xargs cat|wc -l
 find . -name "*.c*" |xargs cat|grep -v ^$|wc -l
 sudo mount -t drvfs G: /mnt/g
-convmv -f gbk -t utf8 -r --notest .
+sudo convmv -f gbk -t utf8 -r --notest .
