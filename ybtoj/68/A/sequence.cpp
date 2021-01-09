@@ -28,14 +28,14 @@ class SZS {
     }
     int query(int x) {
         int res = 0;
-        for (; x > 0; x -= x & -x)
+        for (; x; x -= x & -x)
             res += arr[x];
         return res;
     }
-} l(tot), r(tot);
+};
 
 signed main() {
-    freopen("sequence.in", "r", stdin);
+    // freopen("sequence.in", "r", stdin);
     // freopen("sequence.out", "w", stdout);
 
     scanf("%d%d%d", &n, &L, &R);
@@ -46,18 +46,15 @@ signed main() {
     for (std::map<int, int>::iterator i = map.begin(); i != map.end(); ++i)
         i->second = ++tot;
 
-    for (int i = 1; i <= n; ++i)
-        printf("%d %d\n", ll[i], map[ll[i]]);
-    for (int i = 1; i <= n; ++i)
-        printf("%d %d\n", rr[i], map[rr[i]]);
+    SZS l(tot), r(tot);
 
     for (int i = 1; i <= n; ++i)
         ans[0] += l.query(map[ll[i]]) + r.query(map[rr[i]]),
             l.insert(map[ll[i]]), r.insert(map[rr[i]]);
     ans[1] = (1ll + n) * n / 2;
 
-    // g = gcd(ans[0], ans[1]);
-    // ans[0] /= g, ans[1] /= g;
+    g = gcd(ans[0], ans[1]);
+    ans[0] /= g, ans[1] /= g;
 
     if (ans[0] == 0)
         printf("0");
