@@ -3,7 +3,7 @@
 #include <iostream>
 
 signed main() {
-    freopen("HW.out", "w", stdout);
+    // freopen("HW.out", "w", stdout);
     std::cout << "Hello, world!" << std::endl;
     return 0;
 }
