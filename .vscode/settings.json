@@ -81,5 +81,7 @@
     "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4,ColumnLimit: 0}",
     "html.format.wrapLineLength": 0,
     "editor.formatOnPaste": false,
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "doxdocgen.generic.authorName": "mxr612",
+    "doxdocgen.generic.authorEmail": "mxr612@icloud.com",
 }
