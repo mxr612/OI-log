@@ -1,6 +1,10 @@
 /**
- * AT1219 歴史の研究
-*/
+ * @file AT1219.cpp
+ * @author mxr612 (mxr612@icloud.com)
+ * @date 2021-03-31
+ * 
+ * 歴史の研究
+ */
 
 #define MXN (100020)
 

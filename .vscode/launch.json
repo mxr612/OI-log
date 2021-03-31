@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
+            "name": "Linux-g++/gdb",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -14,7 +14,16 @@
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "clang",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "g++",
+            "miDebuggerPath": "/usr/bin/gdb"
         },
         {
             "name": "Linux-clang/gdb",
@@ -37,7 +46,7 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "Linux-g++/gdb",
+            "name": "Launch",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -46,16 +55,7 @@
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "g++",
-            "miDebuggerPath": "/usr/bin/gdb"
+            "preLaunchTask": "clang",
         },
         {
             "name": "Mac",

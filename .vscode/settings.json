@@ -84,4 +84,9 @@
     "files.autoSave": "onFocusChange",
     "doxdocgen.generic.authorName": "mxr612",
     "doxdocgen.generic.authorEmail": "mxr612@icloud.com",
+    "doxdocgen.file.fileOrder": [
+        "file",
+        "author",
+        "date",
+    ],
 }
