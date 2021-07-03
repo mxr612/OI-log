@@ -1,0 +1,19 @@
+var
+  k,i,n:longint;
+  n1:real;
+begin
+  assign(input,'minnum.in');
+  reset(input);
+  assign(output,'minnum.out');
+  rewrite(output);
+  readln(k);
+  n:=1;
+  n1:=0;
+  repeat
+    n1:=n1+1/n;
+    inc(n);
+  until n1>k;
+  writeln(n-1);
+  close(input);
+  close(output);
+end.
