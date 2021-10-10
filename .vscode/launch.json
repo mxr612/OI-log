@@ -26,36 +26,16 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "Linux-clang/gdb",
-            "type": "cppdbg",
+            "name": "Windows launch",
+            "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "clang",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "Launch",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "preLaunchTask": "clang",
+            "console": "integratedTerminal",
+            "preLaunchTask": "Windows"
         },
         {
             "name": "Mac",
@@ -80,6 +60,28 @@
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
+            "console": "integratedTerminal",
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Windows"
+        },
+        {
+            "name": "Windows(DevC++)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\Program\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
@@ -91,47 +93,79 @@
             ],
             "preLaunchTask": "Windows"
         },
-        {
-            "name": "Linux-NOI",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "Linux",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "APIO2020",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "APIO2020",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
+        // {
+        //     "name": "Linux-clang/gdb",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "setupCommands": [
+        //         {
+        //             "description": "Enable pretty-printing for gdb",
+        //             "text": "-enable-pretty-printing",
+        //             "ignoreFailures": true
+        //         }
+        //     ],
+        //     "preLaunchTask": "clang",
+        //     "miDebuggerPath": "/usr/bin/gdb"
+        // },
+        // {
+        //     "name": "Launch",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "preLaunchTask": "clang",
+        // },
+        // {
+        //     "name": "Linux-NOI",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "MIMode": "gdb",
+        //     "setupCommands": [
+        //         {
+        //             "description": "Enable pretty-printing for gdb",
+        //             "text": "-enable-pretty-printing",
+        //             "ignoreFailures": true
+        //         }
+        //     ],
+        //     "preLaunchTask": "Linux",
+        //     "miDebuggerPath": "/usr/bin/gdb"
+        // },
+        // {
+        //     "name": "APIO2020",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "MIMode": "gdb",
+        //     "setupCommands": [
+        //         {
+        //             "description": "Enable pretty-printing for gdb",
+        //             "text": "-enable-pretty-printing",
+        //             "ignoreFailures": true
+        //         }
+        //     ],
+        //     "preLaunchTask": "APIO2020",
+        //     "miDebuggerPath": "/usr/bin/gdb"
+        // },
     ]
 }

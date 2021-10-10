@@ -54,7 +54,25 @@
         {
             "type": "shell",
             "label": "Windows",
-            "command": "C:\\Program\\mingw64\\bin\\g++.exe",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}\\.build\\${fileBasenameNoExtension}.exe"
+            ],
+            // "options": {
+            //     "cwd": "C:\\Program Files\\mingw64\\bin"
+            // },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Windows(DevC++)",
+            "command": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${file}",
@@ -62,7 +80,7 @@
                 "${workspaceFolder}\\.build\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "C:\\Program\\mingw64\\bin"
+                "cwd": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin"
             },
             "problemMatcher": [
                 "$gcc"

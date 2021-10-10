@@ -1,64 +1,84 @@
-// P1522
+#include <math.h>
+#include <stdio.h>
 
-#include <iostream>
-#include <cstring>
-#include <cmath>
-#include <cstdio>
-using namespace std;
+#include <algorithm>
 
-const double INF = 1e9;
+const int MXN = 160;
+const double MXI = 1e15;
 
 int N;
-int X[200], Y[200];
-double G[200][200];
+char s[MXN];
+int C[MXN];
+double V[MXN][2], E[MXN][MXN];
+double MV[MXN], MC[MXN];
+double ans = MXI;
 
-bool C[200][200];
-double E[200][200];
+double dis(int i, int j) {
+    return sqrt((V[i][0] - V[j][0]) * (V[i][0] - V[j][0]) + (V[i][1] - V[j][1]) * (V[i][1] - V[j][1]));
+}
 
-double M[200] = {0};
-double minn;
+void color(int x) {
+    MC[C[x]] = std::max(MC[C[x]], MV[x]);
+    for (int i = 0; i < N; ++i) {
+        if (!C[i] && E[x][i] != MXI) {
+            C[i] = C[x];
+            color(i);
+        }
+    }
+}
 
-int main() {
-	freopen("P1522.in", "r", stdin);
+signed main() {
+#ifndef ONLINE_JUDGE
+    freopen("P1522.in", "r", stdin);
+#endif
 
-	cin >> N;
-	for (int i = 1; i <= N; i++)
-		scanf("%d %d\n", &X[i], &Y[i]);
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++)
-			C[i][j] = getchar() - '0';
-		getchar();
-	}
+    scanf("%d", &N);
 
-	for (int i = 1; i <= N; i++)
-		for (int j = 1; j <= N; j++)
-			G[i][j] = sqrt((X[i] - X[j]) * (X[i] - X[j]) + (Y[i] - Y[j]) * (Y[i] - Y[j]));
-	for (int i = 1; i <= N; i++)
-		for (int j = 1; j <= N; j++)
-			if (C[i][j] || i == j)
-				E[i][j] = G[i][j];
-			else
-				E[i][j] = INF;
-	minn=INF;
+    for (int i = 0; i < N; ++i)
+        scanf("%lf%lf", &V[i][0], &V[i][1]);
+    for (int i = 0, j; i < N; ++i) {
+        scanf("%s", s);
+        for (j = 0; j < N; ++j) {
+            if (s[j] - '0')
+                E[i][j] = dis(i, j);
+            else
+                E[i][j] = MXI;
+        }
+    }
 
-	for (int k = 1; k <= N; k++)
-		for (int i = 1; i <= N; i++)
-			for (int j = 1; j <= N; j++)
-				E[i][j] = min(E[i][j], E[i][k] + E[k][j]);
+    for (int i, j, k = 0; k < N; ++k) {
+        for (i = 0; i < N; ++i) {
+            for (j = 0; j < N; ++j) {
+                E[i][j] = std::min(E[i][j], E[i][k] + E[k][j]);
+            }
+        }
+    }
 
-	for (int i = 1; i <= N; i++)
-		for (int j = 1; j <= N; j++)
-			if (E[i][j] < INF)
-				M[i] = max(M[i], E[i][j]);
+    for (int i = 0, j; i < N; ++i) {
+        for (j = i + 1; j < N; ++j) {
+            if (E[i][j] != MXI) {
+                MV[i] = std::max(MV[i], E[i][j]);
+                MV[j] = std::max(MV[j], E[i][j]);
+            }
+        }
+    }
 
-	for (int i = 1; i <= N; i++)
-		for (int j = 1; j <= N; j++)
-			if (E[i][j] == INF)
-				minn = min(minn, M[i] + M[j] + G[i][j]);
-	for(int i=1;i<=N;i++)
-		minn=max(minn,M[i]);
+    for (int i = 0; i < N; ++i) {
+        if (!C[i]) {
+            C[i] = i + 1;
+            color(i);
+        }
+    }
 
-	printf("%.6lf", minn);
+    for (int i = 0, j; i < N; ++i) {
+        for (j = 0; j < N; ++j) {
+            if (C[i] != C[j]) {
+                ans = std::min(ans, std::max(std::max(MC[C[i]], MC[C[j]]), MV[i] + MV[j] + dis(i, j)));
+            }
+        }
+    }
 
-	return 0;
+    printf("%.6lf", ans);
+
+    return 0;
 }

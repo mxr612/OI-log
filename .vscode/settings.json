@@ -88,5 +88,6 @@
         "file",
         "author",
         "date",
+        "brief",
     ],
 }
