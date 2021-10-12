@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Linux-g++/gdb",
+            "name": "Linux",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -23,10 +23,9 @@
                 }
             ],
             "preLaunchTask": "g++",
-            "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "Windows launch",
+            "name": "Windows",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
@@ -38,7 +37,7 @@
             "preLaunchTask": "Windows"
         },
         {
-            "name": "Mac",
+            "name": "OS X",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
@@ -50,49 +49,70 @@
             "MIMode": "lldb",
             "preLaunchTask": "Mac"
         },
-        {
-            "name": "Windows",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "console": "integratedTerminal",
-            "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "Windows"
-        },
-        {
-            "name": "Windows(DevC++)",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:\\Program\\mingw64\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "Windows"
-        },
+        // {
+        //     "name": "Linux-g++/gdb",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "MIMode": "gdb",
+        //     "setupCommands": [
+        //         {
+        //             "description": "Enable pretty-printing for gdb",
+        //             "text": "-enable-pretty-printing",
+        //             "ignoreFailures": true
+        //         }
+        //     ],
+        //     "preLaunchTask": "g++",
+        //     "miDebuggerPath": "/usr/bin/gdb"
+        // },
+        // {
+        //     "name": "Windows",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "console": "integratedTerminal",
+        //     "MIMode": "gdb",
+        //     "miDebuggerPath": "gdb",
+        //     "setupCommands": [
+        //         {
+        //             "description": "Enable pretty-printing for gdb",
+        //             "text": "-enable-pretty-printing",
+        //             "ignoreFailures": true
+        //         }
+        //     ],
+        //     "preLaunchTask": "Windows"
+        // },
+        // {
+        //     "name": "Windows(DevC++)",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe",
+        //     "args": [],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "externalConsole": false,
+        //     "MIMode": "gdb",
+        //     "miDebuggerPath": "C:\\Program\\mingw64\\bin\\gdb.exe",
+        //     "setupCommands": [
+        //         {
+        //             "description": "Enable pretty-printing for gdb",
+        //             "text": "-enable-pretty-printing",
+        //             "ignoreFailures": true
+        //         }
+        //     ],
+        //     "preLaunchTask": "Windows"
+        // },
         // {
         //     "name": "Linux-clang/gdb",
         //     "type": "cppdbg",

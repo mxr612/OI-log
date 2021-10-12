@@ -22,7 +22,7 @@
         {
             "type": "shell",
             "label": "g++",
-            "command": "/usr/bin/g++",
+            "command": "g++",
             "args": [
                 "-g",
                 "${file}",
@@ -30,9 +30,9 @@
                 "${workspaceFolder}/.build/${fileBasenameNoExtension}",
                 "-O3",
             ],
-            "options": {
-                "cwd": "/usr/bin"
-            },
+            // "options": {
+            //     "cwd": "/usr/bin"
+            // },
             "group": "build"
         },
         {
