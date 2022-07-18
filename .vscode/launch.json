@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "g++",
-            "type": "cppvsdbg",
+            "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.build/${fileBasenameNoExtension}",
             "args": [],
